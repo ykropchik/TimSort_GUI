@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="Testing_TimSort.ChartsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Testing_TimSort"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+    
+    <!-- <Grid Background="Bisque"> -->
+    <!--     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50"> Страница с графиками </TextBlock> -->
+    <!-- </Grid> -->
+    
+    <Grid>
+        <controls:TabView IsAddTabButtonVisible="False">
+            <controls:TabViewItem Header="Время" IsClosable="False"/>
+            <controls:TabViewItem Header="Сравнения" IsClosable="False"/>
+            <controls:TabViewItem Header="Перестановки" IsClosable="False"/>
+        </controls:TabView>
+    </Grid>
+</Page>
