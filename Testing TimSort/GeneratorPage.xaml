@@ -136,21 +136,6 @@
                                                   Command="{x:Bind Command}" 
                                                   CommandParameter="{x:Bind}"/>
                                 </Grid>
-                                
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup>
-                                        <VisualState>
-                                            <VisualState.StateTriggers>
-                                                <AdaptiveTrigger
-                                                    MinWindowWidth="900" />
-                                            </VisualState.StateTriggers>
-
-                                            <VisualState.Setters>
-                                                <Setter Target="QuantitySlider.Visibility" Value="Collapsed" />
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
                             </SwipeControl>
                         </Grid>
                     </UserControl>

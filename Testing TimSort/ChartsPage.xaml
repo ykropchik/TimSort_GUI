@@ -8,15 +8,55 @@
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
     
-    <!-- <Grid Background="Bisque"> -->
-    <!--     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50"> Страница с графиками </TextBlock> -->
+    <!-- <Grid> -->
+    <!--     <controls:TabView IsAddTabButtonVisible="False"> -->
+    <!--         <controls:TabViewItem Header="Время" IsClosable="False"/> -->
+    <!--         <controls:TabViewItem Header="Сравнения" IsClosable="False"/> -->
+    <!--         <controls:TabViewItem Header="Перестановки" IsClosable="False"/> -->
+    <!--     </controls:TabView> -->
     <!-- </Grid> -->
-    
     <Grid>
-        <controls:TabView IsAddTabButtonVisible="False">
-            <controls:TabViewItem Header="Время" IsClosable="False"/>
-            <controls:TabViewItem Header="Сравнения" IsClosable="False"/>
-            <controls:TabViewItem Header="Перестановки" IsClosable="False"/>
-        </controls:TabView>
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+            <AppBarButton x:Name="AddBut" Icon="NewFolder" Label="Добавить">
+                <Button.Resources>
+                    <!-- <controls:TeachingTip x:Name="HelpTip1" -->
+                    <!--                       Target="{x:Bind AddBut}" -->
+                    <!--                       PreferredPlacement="BottomLeft" -->
+                    <!--                       Title="Добавить конфигурацию" -->
+                    <!--                       Subtitle="Создает новую конфигурацию последовательности" -->
+                    <!--                       ActionButtonClick="TeachingTip_OnActionButtonClick" -->
+                    <!--                       ActionButtonContent="Далее" -->
+                    <!--                       CloseButtonClick="TeachingTip_OnCloseButtonClick" -->
+                    <!--                       CloseButtonContent="Закрыть"/> -->
+                </Button.Resources>
+            </AppBarButton>    
+            <AppBarButton x:Name="HelpBut" Icon="Help" Label="Помощь"/>
+        </StackPanel>
+        
+        <GridView HorizontalAlignment="Stretch"
+                  Background="Aquamarine"
+                  Loaded="Grid_OnLoaded">
+            <GridView.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Margin="12 0 0 0"> Папки с экспериментами</TextBlock>
+                </DataTemplate>
+            </GridView.HeaderTemplate>
+            <GridView.ItemTemplate>
+                <DataTemplate x:Key="FolderDataTemplate" x:DataType="local:FolderButtonItem">
+                    <AppBarButton x:Name="FolderButton" Label="{x:Bind FolderName}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <AppBarButton.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF12B;"/>
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid MaximumRowsOrColumns="5" 
+                                   Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
     </Grid>
 </Page>

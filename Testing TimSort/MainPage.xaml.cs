@@ -31,6 +31,7 @@ namespace Testing_TimSort
         private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
         {
             ("Home", typeof(HomePage)),
+            ("Laboratory", typeof(Laboratory)),
             ("Generation", typeof(GeneratorPage)),
             ("Charts", typeof(ChartsPage)),
         };

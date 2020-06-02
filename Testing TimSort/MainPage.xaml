@@ -15,17 +15,22 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem Tag="Home" Content="Главная">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"></FontIcon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem Tag="Generation" Content="Генерация">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE90F;"></FontIcon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE90F;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem  Tag="Charts" Content="Графики">
+                <NavigationViewItem  Tag="Laboratory" Content="Лаборатория">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D2;"></FontIcon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEF3C;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem  Tag="Charts" Content="Результаты">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D2;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
