@@ -72,16 +72,7 @@
                             </MenuFlyout>
                         </UserControl.ContextFlyout>
                         <Grid AutomationProperties.Name="{x:Bind}">
-                            <SwipeControl x:Name="ListViewSwipeContainer">
-                                <SwipeControl.RightItems>
-                                    <SwipeItems Mode="Execute">
-                                        <SwipeItem x:Name="DeleteSwipeItem"
-                                                   Background="Red" 
-                                                   Command="{x:Bind Command}" 
-                                                   CommandParameter="{x:Bind}"/>
-                                    </SwipeItems>
-                                </SwipeControl.RightItems>
-                                <Grid x:Name="ItemGrid" VerticalAlignment="Center">
+                            <Grid x:Name="ItemGrid" VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
@@ -136,7 +127,6 @@
                                                   Command="{x:Bind Command}" 
                                                   CommandParameter="{x:Bind}"/>
                                 </Grid>
-                            </SwipeControl>
                         </Grid>
                     </UserControl>
                 </DataTemplate>

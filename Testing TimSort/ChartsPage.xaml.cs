@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Input;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -21,10 +22,10 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Testing_TimSort
 {
-
     class FolderButtonItem
     {
         public string FolderName { get; set; }
+        public ICommand Command { get; set; }
     }
     
     /// <summary>
@@ -36,22 +37,53 @@ namespace Testing_TimSort
         private ObservableCollection<FolderButtonItem> folderNamesCollection =
             new ObservableCollection<FolderButtonItem>();
         
+        StandardUICommand deleteCommand = new StandardUICommand(StandardUICommandKind.Delete);
+        
         public ChartsPage()
         {
             this.InitializeComponent();
+            
+            deleteCommand.ExecuteRequested += DeleteCommand_ExecuteRequested;
         }
         
-        private void Grid_OnLoaded(object sender, RoutedEventArgs e)
+        private void GridViewRight_OnLoaded(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 17; i++)
             {
                 folderNamesCollection.Add(
                     new FolderButtonItem {
-                        FolderName = "Folder" + i });
+                        FolderName = "Folder " + i,
+                        Command = deleteCommand });
             }
             
             var gridView = (GridView)sender;
             gridView.ItemsSource = folderNamesCollection;
+        }
+        
+        private void GridViewRight_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            
+        }
+        
+        private void DeleteCommand_ExecuteRequested(
+            XamlUICommand sender, ExecuteRequestedEventArgs args)
+        {
+            // If possible, remove specified item from collection.
+            if (args.Parameter != null)
+            {
+                for (int i = 0; i < folderNamesCollection.Count; i++)
+                {
+                    if (folderNamesCollection[i] == args.Parameter)
+                    {
+                        folderNamesCollection.RemoveAt(i);
+                        return;
+                    }
+                }
+            }
+            if (GridViewRight.SelectedIndex != -1)
+            {
+                folderNamesCollection.RemoveAt(GridViewRight.SelectedIndex);
+            }
         }
     }
 }

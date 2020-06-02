@@ -15,8 +15,14 @@
     <!--         <controls:TabViewItem Header="Перестановки" IsClosable="False"/> -->
     <!--     </controls:TabView> -->
     <!-- </Grid> -->
-    <Grid>
-        <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+    <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" Margin="0">
             <AppBarButton x:Name="AddBut" Icon="NewFolder" Label="Добавить">
                 <Button.Resources>
                     <!-- <controls:TeachingTip x:Name="HelpTip1" -->
@@ -30,31 +36,66 @@
                     <!--                       CloseButtonContent="Закрыть"/> -->
                 </Button.Resources>
             </AppBarButton>    
+            <AppBarButton x:Name="DelBut" Icon="Delete" Label="Удалить" IsEnabled="False"/>
             <AppBarButton x:Name="HelpBut" Icon="Help" Label="Помощь"/>
         </StackPanel>
         
-        <GridView HorizontalAlignment="Stretch"
-                  Background="Aquamarine"
-                  Loaded="Grid_OnLoaded">
+        <TextBlock Grid.Row="1" Margin="12" FontSize="20"> Папки с экспериментами</TextBlock>
+        
+        <GridView x:Name="GridViewRight" 
+                  Grid.Row="2"
+                  HorizontalAlignment="Stretch"
+                  SelectionMode="Multiple"
+                  IsMultiSelectCheckBoxEnabled="False"
+                  Loaded="GridViewRight_OnLoaded"
+                  ItemClick="GridViewRight_OnItemClick">
             <GridView.HeaderTemplate>
                 <DataTemplate>
-                    <TextBlock Margin="12 0 0 0"> Папки с экспериментами</TextBlock>
+                    
                 </DataTemplate>
             </GridView.HeaderTemplate>
+            
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Margin" Value="10"/>
+                </Style>
+            </GridView.ItemContainerStyle>
+            
             <GridView.ItemTemplate>
                 <DataTemplate x:Key="FolderDataTemplate" x:DataType="local:FolderButtonItem">
-                    <AppBarButton x:Name="FolderButton" Label="{x:Bind FolderName}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <AppBarButton.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF12B;"/>
-                        </AppBarButton.Icon>
-                    </AppBarButton>
+                    <!-- <AppBarButton x:Name="FolderButton"  -->
+                    <!--               Label="{x:Bind FolderName}"  -->
+                    <!--               HorizontalAlignment="Stretch"  -->
+                    <!--               VerticalAlignment="Stretch"> -->
+                    <!--     <AppBarButton.Icon> -->
+                    <!--         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF12B;"/> -->
+                    <!--     </AppBarButton.Icon> -->
+                    <!-- </AppBarButton> -->
+                    
+                    <UserControl>
+                        <UserControl.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem 
+                                    Command="{x:Bind Command}" 
+                                    CommandParameter="{x:Bind}" />
+                            </MenuFlyout>
+                        </UserControl.ContextFlyout>
+                        
+                        <StackPanel Orientation="Vertical" Padding="8">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF12B;" FontSize="64"/>
+                            <TextBlock Text="{x:Bind FolderName}" TextTrimming="CharacterEllipsis" FontSize="24" HorizontalAlignment="Center"/>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{x:Bind FolderName}"/>
+                            </ToolTipService.ToolTip>
+                        </StackPanel>
+                    </UserControl>
+                    
                 </DataTemplate>
             </GridView.ItemTemplate>
             
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid MaximumRowsOrColumns="5" 
-                                   Orientation="Horizontal"/>
+                    <ItemsWrapGrid Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
         </GridView>
