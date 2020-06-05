@@ -8,6 +8,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -52,7 +54,7 @@ namespace Testing_TimSort
             {
                 folderNamesCollection.Add(
                     new FolderButtonItem {
-                        FolderName = "Folder " + i,
+                        FolderName = "Отчет №" + i,
                         Command = deleteCommand });
             }
             
@@ -62,7 +64,7 @@ namespace Testing_TimSort
         
         private void GridViewRight_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            
+        
         }
         
         private void DeleteCommand_ExecuteRequested(
@@ -84,6 +86,18 @@ namespace Testing_TimSort
             {
                 folderNamesCollection.RemoveAt(GridViewRight.SelectedIndex);
             }
+        }
+
+        private async void CreateBut_onClick(object sender, RoutedEventArgs e)
+        {
+            var filesPicker = new FileOpenPicker();
+            filesPicker.ViewMode = PickerViewMode.Thumbnail;
+            // TODO: Save the last place where saved the generated sequences and place it here
+            filesPicker.SuggestedStartLocation = PickerLocationId.Desktop;
+            filesPicker.FileTypeFilter.Add(".seq");
+            
+            IReadOnlyList<StorageFile> filesList = new List<StorageFile>();
+            filesList = await filesPicker.PickMultipleFilesAsync();
         }
     }
 }

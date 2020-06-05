@@ -1,0 +1,22 @@
+﻿<ContentDialog
+    x:Class="Testing_TimSort.CompleteDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Testing_TimSort"
+    mc:Ignorable="d">
+
+    <RelativePanel>
+        <SymbolIcon x:Name="Icon"
+                    Symbol="Accept"
+                    Margin="36 0 16 0"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"/>
+        <TextBlock Text="{x:Bind ContentText}" 
+                   Width="auto"
+                   MaxLines="2"
+                   TextAlignment="Center"
+                   RelativePanel.AlignVerticalCenterWithPanel="True"
+                   RelativePanel.RightOf="Icon"/>
+    </RelativePanel>
+</ContentDialog>

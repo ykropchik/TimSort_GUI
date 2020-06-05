@@ -8,6 +8,6 @@
     mc:Ignorable="d">
     
     <Grid Background="Goldenrod">
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50"> Страница с настройками </TextBlock>
+        <TextBlock></TextBlock>
     </Grid>
 </Page>

@@ -33,8 +33,8 @@
                     <controls:TeachingTip x:Name="HelpTip1"
                                           Target="{x:Bind AddBut}"
                                           PreferredPlacement="BottomLeft"
-                                          Title="Добавить конфигурацию"
-                                          Subtitle="Создает новую конфигурацию последовательности"
+                                          Title="Добавить"
+                                          Subtitle="Добавляет новую конфигурацию последовательности"
                                           ActionButtonClick="TeachingTip_OnActionButtonClick"
                                           ActionButtonContent="Далее"
                                           CloseButtonClick="TeachingTip_OnCloseButtonClick"
@@ -46,7 +46,7 @@
                     <controls:TeachingTip x:Name="HelpTip3"
                                           Target="{x:Bind SaveBut}"
                                           PreferredPlacement="BottomLeft"
-                                          Title="Сгенерировать и сохранить"
+                                          Title="Сохранить"
                                           Subtitle="Генерирует и сохраняет настроенные варианты последовательностей. Перед сохранением вам будет предложено выбрать папку для сохранения. Имена файлам с последовательностями будут присвоены автоматически с учетом выбрнной конфигурации, в случае, если в папке уже находится файл с таким же именем, он будет перезаписан"
                                           CloseButtonClick="TeachingTip_OnCloseButtonClick"
                                           CloseButtonContent="Закрыть"/>
@@ -110,8 +110,7 @@
                                               SelectedIndex="{x:Bind SequenceType, Mode=TwoWay}"
                                               Header="Тип последовательности" 
                                               PlaceholderText="Выберите тип" 
-                                              HorizontalAlignment="Right" 
-                                              SelectionChanged="SequenceTypeChanged">
+                                              HorizontalAlignment="Right">
                                         <x:String>Возрастающая</x:String>
                                         <x:String>Убывающая</x:String>
                                         <x:String>Случайная</x:String>

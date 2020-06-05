@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -27,12 +28,15 @@ namespace Testing_TimSort
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SettingsPage : Page
+    public sealed partial class CompleteDialog : ContentDialog
     {
-
-        public SettingsPage()
+        public CompleteDialog(string contentText, string buttonText)
         {
             this.InitializeComponent();
+            ContentText = contentText;
+            CloseButtonText = buttonText;
         }
+        
+        public string ContentText { get; set; }
     }
 }

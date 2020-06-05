@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -125,9 +126,9 @@ namespace Testing_TimSort
             {
                 var warningDialog = new ContentDialog()
                 {
-                    Title = "Нечего создавать",
+                    Title = "Нет настроек для генерации",
                     Content = "Добавьте хотя бы одну конфигурацию последовательности",
-                    CloseButtonText = "Ok"
+                    CloseButtonText = "OK"
                 };
                 
                 await warningDialog.ShowAsync();
@@ -139,9 +140,35 @@ namespace Testing_TimSort
 
             var folder = await savePicker.PickSingleFolderAsync();
 
-            if (folder != null) 
+            if (folder != null)
             {
+                var progressDialog = new ProgressDialog("Генерируем последовательности", "OK");
+                progressDialog.ShowAsync();
                 
+                var seqGenerator = new SequencesGenerator();
+                List<(int[], int, int)> sequences = new List<(int[], int, int)>();
+
+
+                while (collection.Count != 0)
+                {
+                    //sequences.Add((seqGenerator.GenerateSequence(collection[0].Quantity, collection[0].SequenceType), collection[0].Quantity, collection[0].SequenceType));
+                    //await Task.Delay(1000);
+                    collection.RemoveAt(0);
+                }
+
+
+                sequences.Add((new []{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 11, 2));
+
+                progressDialog.ContentText = "Сохраняем последовательности";
+                var fileCreator = new FileCreator();
+                //fileCreator.CreateFiles(sequences, folder);
+
+                await Task.Delay(2000);
+                progressDialog.Hide();
+                
+                var completeDialog = new CompleteDialog("Готово!", "ОК");
+                await completeDialog.ShowAsync();
+
             }
         }
         
@@ -169,23 +196,6 @@ namespace Testing_TimSort
         private void TeachingTip_OnCloseButtonClick(TeachingTip sender, object args)
         {
             sender.IsOpen = false;
-        }
-
-        private void SequenceTypeChanged (object sender, SelectionChangedEventArgs e)
-        {
-            var sequenceType = e.AddedItems[0].ToString();
-            
-            switch (sequenceType)
-            {
-                case "Возрастающая":
-                    break;
-                case "Убывающая":
-                    break;
-                case "Невозрастающая":
-                    break;
-                case "Неубывающая":
-                    break;
-            }
         }
     }
 }

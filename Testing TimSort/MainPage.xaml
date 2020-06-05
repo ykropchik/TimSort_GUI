@@ -23,11 +23,11 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE90F;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem  Tag="Laboratory" Content="Лаборатория">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEF3C;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <!-- <NavigationViewItem  Tag="Laboratory" Content="Лаборатория"> -->
+                <!--     <NavigationViewItem.Icon> -->
+                <!--         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEF3C;"/> -->
+                <!--     </NavigationViewItem.Icon> -->
+                <!-- </NavigationViewItem> -->
                 <NavigationViewItem  Tag="Charts" Content="Результаты">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D2;"/>
