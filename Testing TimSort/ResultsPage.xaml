@@ -1,0 +1,99 @@
+﻿<Page
+    x:Class="Testing_TimSort.ResultsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Testing_TimSort"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Padding="12">
+    
+    <!-- <Grid> -->
+    <!--     <controls:TabView IsAddTabButtonVisible="False"> -->
+    <!--         <controls:TabViewItem Header="Время" IsClosable="False"/> -->
+    <!--         <controls:TabViewItem Header="Сравнения" IsClosable="False"/> -->
+    <!--         <controls:TabViewItem Header="Перестановки" IsClosable="False"/> -->
+    <!--     </controls:TabView> -->
+    <!-- </Grid> -->
+    
+    <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" Margin="0">
+            <AppBarButton x:Name="CreateBut" Label="Создать" Click="CreateBut_onClick">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9F5;"/>
+                </AppBarButton.Icon>
+                <Button.Resources>
+                    <!-- <controls:TeachingTip x:Name="HelpTip1" -->
+                    <!--                       Target="{x:Bind AddBut}" -->
+                    <!--                       PreferredPlacement="BottomLeft" -->
+                    <!--                       Title="Добавить конфигурацию" -->
+                    <!--                       Subtitle="Создает новую конфигурацию последовательности" -->
+                    <!--                       ActionButtonClick="TeachingTip_OnActionButtonClick" -->
+                    <!--                       ActionButtonContent="Далее" -->
+                    <!--                       CloseButtonClick="TeachingTip_OnCloseButtonClick" -->
+                    <!--                       CloseButtonContent="Закрыть"/> -->
+                </Button.Resources>
+            </AppBarButton>    
+            <AppBarButton x:Name="HelpBut" Icon="Help" Label="Помощь"/>
+        </StackPanel>
+        
+        <GridView x:Name="GridViewRight" 
+                  Grid.Row="1"
+                  HorizontalAlignment="Stretch"
+                  SelectionMode="None"
+                  IsItemClickEnabled="True"
+                  Loaded="GridViewRight_OnLoaded"
+                  ItemClick="GridViewRight_OnItemClick">
+            
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Margin" Value="10"/>
+                </Style>
+            </GridView.ItemContainerStyle>
+            
+            <GridView.ItemTemplate>
+                <DataTemplate x:Key="FolderDataTemplate" x:DataType="local:ResultsItem">
+                    <!-- <AppBarButton x:Name="FolderButton"  -->
+                    <!--               Label="{x:Bind FolderName}"  -->
+                    <!--               HorizontalAlignment="Stretch"  -->
+                    <!--               VerticalAlignment="Stretch"> -->
+                    <!--     <AppBarButton.Icon> -->
+                    <!--         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF12B;"/> -->
+                    <!--     </AppBarButton.Icon> -->
+                    <!-- </AppBarButton> -->
+                    
+                    <UserControl>
+                        <UserControl.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem 
+                                    Command="{x:Bind Command}" 
+                                    CommandParameter="{x:Bind}" />
+                            </MenuFlyout>
+                        </UserControl.ContextFlyout>
+                        
+                        <StackPanel Orientation="Vertical" Padding="8">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9F9;" FontSize="64"/>
+                            <TextBlock Text="{x:Bind ResultName}" MaxLines="2" TextTrimming="CharacterEllipsis" FontSize="20" HorizontalAlignment="Center"/>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{x:Bind ResultName}"/>
+                            </ToolTipService.ToolTip>
+                        </StackPanel>
+                    </UserControl>
+                    
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+    </Grid>
+</Page>

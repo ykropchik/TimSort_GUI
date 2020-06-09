@@ -98,6 +98,9 @@
     <Compile Include="ChartsPage.xaml.cs">
       <DependentUpon>ChartsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResultsPage.xaml.cs">
+      <DependentUpon>ResultsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CompleteDialog.xaml.cs">
       <DependentUpon>CompleteDialog.xaml</DependentUpon>
     </Compile>
@@ -121,8 +124,12 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\FileCreator.cs" />
-    <Compile Include="src\ReportGenerator.cs" />
+    <Compile Include="src\InsertionSort.cs" />
+    <Compile Include="src\jsonParser.cs" />
+    <Compile Include="src\ReportCreator.cs" />
+    <Compile Include="src\Sorting.cs" />
     <Compile Include="src\SequencesGenerator.cs" />
+    <Compile Include="src\TimSort.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -146,6 +153,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="ChartsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResultsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -185,8 +196,14 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.7</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.0.0-preview1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="WinRTXamlToolkit.Controls.DataVisualization.UWP">
+      <Version>2.3.0</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

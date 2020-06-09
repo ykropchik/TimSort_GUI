@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows.Input;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -19,85 +17,55 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Controls;
+using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Testing_TimSort
 {
-    class FolderButtonItem
-    {
-        public string FolderName { get; set; }
-        public ICommand Command { get; set; }
-    }
-    
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class ChartsPage : Page
     {
         
-        private ObservableCollection<FolderButtonItem> folderNamesCollection =
-            new ObservableCollection<FolderButtonItem>();
-        
-        StandardUICommand deleteCommand = new StandardUICommand(StandardUICommandKind.Delete);
+        private string TestName { get; set; }
+        public class SortingResult
+        {
+            public string Name { get; set; }
+            public int TimeTimSort { get; set; }
+            public int ComparisonsTimSort { get; set; }
+            public int TranspositionTimSort { get; set; }
+            public int TimeInsert { get; set; }
+            public int ComparisonsInsert { get; set; }
+            public int TranspositionInsert { get; set; }
+        }
+
+        private List<SortingResult> resultsList = new List<SortingResult>();
         
         public ChartsPage()
         {
             this.InitializeComponent();
             
-            deleteCommand.ExecuteRequested += DeleteCommand_ExecuteRequested;
         }
         
-        private void GridViewRight_OnLoaded(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            for (int i = 0; i < 17; i++)
-            {
-                folderNamesCollection.Add(
-                    new FolderButtonItem {
-                        FolderName = "Отчет №" + i,
-                        Command = deleteCommand });
-            }
-            
-            var gridView = (GridView)sender;
-            gridView.ItemsSource = folderNamesCollection;
-        }
-        
-        private void GridViewRight_OnItemClick(object sender, ItemClickEventArgs e)
-        {
-        
-        }
-        
-        private void DeleteCommand_ExecuteRequested(
-            XamlUICommand sender, ExecuteRequestedEventArgs args)
-        {
-            // If possible, remove specified item from collection.
-            if (args.Parameter != null)
-            {
-                for (int i = 0; i < folderNamesCollection.Count; i++)
-                {
-                    if (folderNamesCollection[i] == args.Parameter)
-                    {
-                        folderNamesCollection.RemoveAt(i);
-                        return;
-                    }
-                }
-            }
-            if (GridViewRight.SelectedIndex != -1)
-            {
-                folderNamesCollection.RemoveAt(GridViewRight.SelectedIndex);
-            }
+            TestName = (string) e.Parameter;
+            resultsList = JsonParser.GetTestData(TestName);
+            CreateCharts();
         }
 
-        private async void CreateBut_onClick(object sender, RoutedEventArgs e)
+        private void CreateCharts()
         {
-            var filesPicker = new FileOpenPicker();
-            filesPicker.ViewMode = PickerViewMode.Thumbnail;
-            // TODO: Save the last place where saved the generated sequences and place it here
-            filesPicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            filesPicker.FileTypeFilter.Add(".seq");
-            
-            IReadOnlyList<StorageFile> filesList = new List<StorageFile>();
-            filesList = await filesPicker.PickMultipleFilesAsync();
+            for (int i = 0; i < TimeChart.Series.Count; i++)
+            {
+                (TimeChart.Series[i] as ColumnSeries).ItemsSource = resultsList;
+                (TranspositionChart.Series[i] as ColumnSeries).ItemsSource = resultsList;
+                (ComparisonsChart.Series[i] as ColumnSeries).ItemsSource = resultsList;
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Testing_TimSort
 {
-    public class ReportGenerator
+    public class InsertionSort
     {
         
     }

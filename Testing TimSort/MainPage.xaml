@@ -37,15 +37,9 @@
             
             <ScrollViewer>
                 <Frame x:Name="RootFrame" 
-                       Padding="12 0 12 24" 
                        IsTabStop="True"
                        NavigationFailed="ContentFrame_NavigationFailed"/>
             </ScrollViewer>
         </NavigationView>
     </Grid>
-    
-    <!-- <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"> -->
-    <!--     <Button Height="auto" Width="300" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top" Click="DatasetCreate">Создать набор данных</Button> -->
-    <!--     <Button Height="auto" Width="300" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Bottom">Начать эксперимент</Button> -->
-    <!-- </StackPanel> -->
 </Page>

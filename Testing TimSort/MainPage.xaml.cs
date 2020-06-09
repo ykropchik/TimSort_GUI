@@ -33,7 +33,7 @@ namespace Testing_TimSort
             ("Home", typeof(HomePage)),
             ("Generation", typeof(GeneratorPage)),
             ("Laboratory", typeof(Laboratory)),
-            ("Charts", typeof(ChartsPage)),
+            ("Charts", typeof(ResultsPage)),
         };
 
         public MainPage()
@@ -161,23 +161,24 @@ namespace Testing_TimSort
         private void On_Navigated(object sender, NavigationEventArgs e)
         {
             NavigationViewControl.IsBackEnabled = RootFrame.CanGoBack;
-
+            
+            if (RootFrame.SourcePageType == typeof(ChartsPage))
+            {
+                return;
+            }
+            
             if (RootFrame.SourcePageType == typeof(SettingsPage))
             {
                 // SettingsItem is not part of NavView.MenuItems, and doesn't have a Tag.
                 NavigationViewControl.SelectedItem = (NavigationViewItem) NavigationViewControl.SettingsItem;
-                NavigationViewControl.Header = "Настройки";
             }
             else if (RootFrame.SourcePageType != null)
             {
                 var item = _pages.FirstOrDefault(p => p.Page == e.SourcePageType);
-
+            
                 NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems
                     .OfType<NavigationViewItem>()
                     .First(n => n.Tag.Equals(item.Tag));
-
-                NavigationViewControl.Header =
-                    ((NavigationViewItem) NavigationViewControl.SelectedItem)?.Content?.ToString();
             }
         }
     }

@@ -6,93 +6,27 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:Testing_TimSort"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     mc:Ignorable="d">
     
-    <!-- <Grid> -->
-    <!--     <controls:TabView IsAddTabButtonVisible="False"> -->
-    <!--         <controls:TabViewItem Header="Время" IsClosable="False"/> -->
-    <!--         <controls:TabViewItem Header="Сравнения" IsClosable="False"/> -->
-    <!--         <controls:TabViewItem Header="Перестановки" IsClosable="False"/> -->
-    <!--     </controls:TabView> -->
-    <!-- </Grid> -->
-    
-    <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <StackPanel Orientation="Horizontal" Margin="0">
-            <AppBarButton x:Name="CreateBut" Label="Создать" Click="CreateBut_onClick">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9F5;"/>
-                </AppBarButton.Icon>
-                <Button.Resources>
-                    <!-- <controls:TeachingTip x:Name="HelpTip1" -->
-                    <!--                       Target="{x:Bind AddBut}" -->
-                    <!--                       PreferredPlacement="BottomLeft" -->
-                    <!--                       Title="Добавить конфигурацию" -->
-                    <!--                       Subtitle="Создает новую конфигурацию последовательности" -->
-                    <!--                       ActionButtonClick="TeachingTip_OnActionButtonClick" -->
-                    <!--                       ActionButtonContent="Далее" -->
-                    <!--                       CloseButtonClick="TeachingTip_OnCloseButtonClick" -->
-                    <!--                       CloseButtonContent="Закрыть"/> -->
-                </Button.Resources>
-            </AppBarButton>    
-            <AppBarButton x:Name="HelpBut" Icon="Help" Label="Помощь"/>
-        </StackPanel>
-        
-        <GridView x:Name="GridViewRight" 
-                  Grid.Row="1"
-                  HorizontalAlignment="Stretch"
-                  SelectionMode="None"
-                  IsItemClickEnabled="True"
-                  Loaded="GridViewRight_OnLoaded"
-                  ItemClick="GridViewRight_OnItemClick">
-            
-            <GridView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
-                    <Setter Property="Margin" Value="10"/>
-                </Style>
-            </GridView.ItemContainerStyle>
-            
-            <GridView.ItemTemplate>
-                <DataTemplate x:Key="FolderDataTemplate" x:DataType="local:FolderButtonItem">
-                    <!-- <AppBarButton x:Name="FolderButton"  -->
-                    <!--               Label="{x:Bind FolderName}"  -->
-                    <!--               HorizontalAlignment="Stretch"  -->
-                    <!--               VerticalAlignment="Stretch"> -->
-                    <!--     <AppBarButton.Icon> -->
-                    <!--         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF12B;"/> -->
-                    <!--     </AppBarButton.Icon> -->
-                    <!-- </AppBarButton> -->
-                    
-                    <UserControl>
-                        <UserControl.ContextFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem 
-                                    Command="{x:Bind Command}" 
-                                    CommandParameter="{x:Bind}" />
-                            </MenuFlyout>
-                        </UserControl.ContextFlyout>
-                        
-                        <StackPanel Orientation="Vertical" Padding="8">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9F9;" FontSize="64"/>
-                            <TextBlock Text="{x:Bind FolderName}" MaxLines="2" TextTrimming="CharacterEllipsis" FontSize="20" HorizontalAlignment="Center"/>
-                            <ToolTipService.ToolTip>
-                                <ToolTip Content="{x:Bind FolderName}"/>
-                            </ToolTipService.ToolTip>
-                        </StackPanel>
-                    </UserControl>
-                    
-                </DataTemplate>
-            </GridView.ItemTemplate>
-            
-            <GridView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsWrapGrid Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </GridView.ItemsPanel>
-        </GridView>
-    </Grid>
+    <controls:TabView x:Name="TabView" IsAddTabButtonVisible="False" VerticalAlignment="Stretch">
+        <controls:TabViewItem Header="Время" IsClosable="False">
+            <charting:Chart x:Name="TimeChart" Width="auto" Height="auto">
+                <charting:ColumnSeries Title="TimSort" Margin="0" IndependentValuePath="Name" DependentValuePath="TimeTimSort" IsSelectionEnabled="True"/>
+                <charting:ColumnSeries Title="Вставки"  Margin="0" IndependentValuePath="Name" DependentValuePath="TimeInsert" IsSelectionEnabled="True"/>
+            </charting:Chart>
+        </controls:TabViewItem>
+        <controls:TabViewItem Header="Перестановки" IsClosable="False" Width="auto" Height="auto">
+            <charting:Chart x:Name="TranspositionChart" Height="auto" Width="auto">
+                <charting:ColumnSeries Title="TimSort" IndependentValuePath="Name" DependentValuePath="TranspositionTimSort" IsSelectionEnabled="True"/>
+                <charting:ColumnSeries Title="Вставки"  IndependentValuePath="Name" DependentValuePath="TranspositionInsert" IsSelectionEnabled="True"/>
+            </charting:Chart>
+        </controls:TabViewItem>
+        <controls:TabViewItem Header="Сравнения" IsClosable="False" Width="auto" Height="auto">
+            <charting:Chart x:Name="ComparisonsChart" Height="auto" Width="auto">
+                <charting:ColumnSeries Title="TimSort" IndependentValuePath="Name" DependentValuePath="ComparisonsTimSort" IsSelectionEnabled="True"/>
+                <charting:ColumnSeries Title="Вставки"  IndependentValuePath="Name" DependentValuePath="ComparisonsInsert" IsSelectionEnabled="True"/>
+            </charting:Chart>
+        </controls:TabViewItem>
+    </controls:TabView>
 </Page>
