@@ -5,10 +5,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:Testing_TimSort"
-    mc:Ignorable="d"
-    Padding="12">
+    mc:Ignorable="d">
     
-    <Grid Background="Coral">
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50"> Домашняя страница </TextBlock>
-    </Grid>
+    <!-- <Grid Background="Coral"> -->
+    <!--     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50"> Домашняя страница </TextBlock> -->
+    <!-- </Grid> -->
+    
+    <StackPanel Orientation="Vertical" Padding="12 24 12 24" >
+        <TextBlock FontSize="40" Text="TimSort" Padding="12 0 0 24"/>
+        <TextBlock FontSize="16" Height="auto" Width="auto" TextWrapping="WrapWholeWords" Padding="12 0 24 0">
+            TimSort - гибридный алгоритм сортировки, разработанный Тимом Питерсом в 2002 года, и сочетающий в себе сортировку вставками и сортировку слиянием.
+            В настоящий момент алгоритм является стандартным алгоритмом сортировки Python, OpenJDK и реализован в Android SDK 1.5.
+            Идея алгоритма строится на идеи, что в реальном мире сортируемые массивы данных зачастую содержат в себе упорядоченные подмассивы.
+            На таких наборах данных алгоритм TimSort показывает наилучшие результаты, по сравнению с другими алгоритмами сортировок.
+        </TextBlock>
+    </StackPanel>
+    
 </Page>

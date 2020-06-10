@@ -21,14 +21,14 @@
         </Style>
     </Page.Resources>
 
-    <Grid Name="MainGrid" Loaded="ControlExample_Loaded" Background="{ThemeResource SystemControlAcrylicElementBrush}">
+    <Grid Name="MainGrid" Loaded="ControlExample_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-    
-        <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 0" Background="{ThemeResource SystemControlAcrylicElementBrush}">
             <AppBarButton x:Name="AddBut" Icon="Add" Label="Добавить" Click="AddListElem">
                 <Button.Resources>
                     <controls:TeachingTip x:Name="HelpTip1"

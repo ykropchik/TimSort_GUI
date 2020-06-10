@@ -44,6 +44,7 @@
         </StackPanel>
         
         <GridView x:Name="GridViewRight" 
+                  Background="White"
                   Grid.Row="1"
                   HorizontalAlignment="Stretch"
                   SelectionMode="None"
@@ -58,7 +59,7 @@
             </GridView.ItemContainerStyle>
             
             <GridView.ItemTemplate>
-                <DataTemplate x:Key="FolderDataTemplate" x:DataType="local:ResultsItem">
+                <DataTemplate x:DataType="local:ResultsItem">
                     <!-- <AppBarButton x:Name="FolderButton"  -->
                     <!--               Label="{x:Bind FolderName}"  -->
                     <!--               HorizontalAlignment="Stretch"  -->

@@ -89,9 +89,7 @@ namespace Testing_TimSort
                 }
                 
             }
-            
-            ReportCreator.ReportCreate();
-            
+
             var gridView = (GridView)sender;
             gridView.ItemsSource = resultsNamesCollection;
         }

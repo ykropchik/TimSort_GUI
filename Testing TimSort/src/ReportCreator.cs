@@ -16,7 +16,9 @@ namespace Testing_TimSort
             }
             else
             {
-                
+                var test = ApplicationData.Current.LocalFolder.Path;
+                ApplicationData.Current.LocalFolder.CreateFileAsync("Results.json");
+                var temp = ApplicationData.Current.LocalFolder.GetFileAsync("Results.json");
             }
         }
         private static bool IsReportExisting()
