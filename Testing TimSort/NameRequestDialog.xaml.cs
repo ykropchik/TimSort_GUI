@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Controls;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+// The Blank Page item template is documentedTextBox_OnTextChangingextBoTextBox_OnTextChanged52&clcid=0x409
 
 namespace Testing_TimSort
 {
@@ -28,14 +28,19 @@ namespace Testing_TimSort
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ProgressDialog : ContentDialog
+    public sealed partial class NameRequestDialog : ContentDialog
     {
-        public ProgressDialog(string contentText)
+        public string FileName { get; set; }
+
+        public NameRequestDialog()
         {
             this.InitializeComponent();
-            ContentText = contentText;
+            IsPrimaryButtonEnabled = false;
         }
         
-        public string ContentText { get; set; }
+        private void TextBox_OnTextChanging(object sender, TextBoxTextChangingEventArgs args)
+        {
+            IsPrimaryButtonEnabled = ((TextBox) sender).Text.Length != 0;
+        }
     }
 }

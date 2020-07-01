@@ -8,7 +8,7 @@ namespace Testing_TimSort
 {
     public static class ReportCreator
     {
-        public static void ReportCreate()
+        public static async  void ReportCreate()
         {
             if (IsReportExisting())
             {
@@ -17,7 +17,7 @@ namespace Testing_TimSort
             else
             {
                 var test = ApplicationData.Current.LocalFolder.Path;
-                ApplicationData.Current.LocalFolder.CreateFileAsync("Results.json");
+                await ApplicationData.Current.LocalFolder.CreateFileAsync("Results.json");
                 var temp = ApplicationData.Current.LocalFolder.GetFileAsync("Results.json");
             }
         }

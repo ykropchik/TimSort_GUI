@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Windows.Input;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.Data.Json;
@@ -51,31 +52,13 @@ namespace Testing_TimSort
             
             deleteCommand.ExecuteRequested += DeleteCommand_ExecuteRequested;
         }
-        
-        private async void GridViewRight_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            // for (int i = 0; i < 17; i++)
-            // {
-            //     resultsNamesCollection.Add(
-            //         new ResultsItem {
-            //             ResultName = "Отчет №" + i,
-            //             Command = deleteCommand });
-            // }
-            
-            // var filesPicker = new FileOpenPicker();
-            // filesPicker.ViewMode = PickerViewMode.Thumbnail;
-            // filesPicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            // filesPicker.FileTypeFilter.Add(".json");
-            // StorageFile jsonFile = await filesPicker.PickSingleFileAsync();
-            // string jsonString = await FileIO.ReadTextAsync(jsonFile, UnicodeEncoding.Utf8);
-            //
-            // JsonParser.Parse(jsonString);
-            // var names = JsonParser.GetNames();
-            //
-            
 
+        private async void UpdateResultsNamesCollection()
+        {
             if (File.Exists($@"{ApplicationData.Current.LocalFolder.Path}\{"Results.json"}"))
             {
+                resultsNamesCollection.Clear();
+                
                 StorageFile jsonFile = await ApplicationData.Current.LocalFolder.GetFileAsync("Results.json");
                 JsonParser.Parse(await FileIO.ReadTextAsync(jsonFile, UnicodeEncoding.Utf8));
                 var names = JsonParser.GetNames();
@@ -87,19 +70,23 @@ namespace Testing_TimSort
                             ResultName = t,
                             Command = deleteCommand });
                 }
-                
             }
 
-            var gridView = (GridView)sender;
-            gridView.ItemsSource = resultsNamesCollection;
+            GridViewRight.ItemsSource = resultsNamesCollection;
+        }
+        
+        private void GridViewRight_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            UpdateResultsNamesCollection();
         }
         
         private void GridViewRight_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            this.Frame.Navigate(typeof(ChartsPage), (e.ClickedItem as ResultsItem).ResultName);
+            
+            this.Frame.Navigate(typeof(ChartsPage), resultsNamesCollection.IndexOf(e.ClickedItem as ResultsItem));
         }
         
-        private void DeleteCommand_ExecuteRequested(
+        private async void DeleteCommand_ExecuteRequested(
             XamlUICommand sender, ExecuteRequestedEventArgs args)
         {
             // If possible, remove specified item from collection.
@@ -110,6 +97,7 @@ namespace Testing_TimSort
                     if (resultsNamesCollection[i] == args.Parameter)
                     {
                         resultsNamesCollection.RemoveAt(i);
+                        await JsonWriter.RemoveTest(i);
                         return;
                     }
                 }
@@ -117,6 +105,7 @@ namespace Testing_TimSort
             if (GridViewRight.SelectedIndex != -1)
             {
                 resultsNamesCollection.RemoveAt(GridViewRight.SelectedIndex);
+                await JsonWriter.RemoveTest(GridViewRight.SelectedIndex);
             }
         }
 
@@ -129,6 +118,22 @@ namespace Testing_TimSort
             
             IReadOnlyList<StorageFile> filesList = new List<StorageFile>();
             filesList = await filesPicker.PickMultipleFilesAsync();
+
+            if (filesList.Count != 0)
+            {
+                var requestDialog = new NameRequestDialog();
+                var dialogResult = await requestDialog.ShowAsync();
+
+                if (dialogResult == ContentDialogResult.Primary)
+                {
+                    var progressDialog = new ProgressDialog("Проводится эксперимент, это может занять несколько минут.\n" +
+                                                            "Пожалуйста не закрывайте приложение!");
+                    progressDialog.ShowAsync();
+                    await JsonWriter.WriteResult(await Experiment.Start(filesList), requestDialog.FileName);
+                    UpdateResultsNamesCollection();
+                    progressDialog.Hide();
+                }
+            }
         }
     }
 }

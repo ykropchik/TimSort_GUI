@@ -22,19 +22,4 @@
                    RelativePanel.AlignVerticalCenterWithPanel="True"
                    RelativePanel.RightOf="ProgressRing"/>
     </RelativePanel>
-    
-    <!-- <StackPanel Orientation="Vertical"> -->
-    <!--     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"> -->
-    <!--         <ProgressRing Visibility="{x:Bind progressRingVisibility}" IsActive="True" Width="1*"/> -->
-    <!--         <TextBlock Text="{x:Bind ContentText}" Width="1*" TextAlignment="Center"/> -->
-    <!--     </StackPanel> -->
-    <!--     <Button Visibility="{x:Bind buttonVisibility}" -->
-    <!--             Width="auto" -->
-    <!--             Height="auto" -->
-    <!--             Command="{x:Bind buttonCommand}" -->
-    <!--             HorizontalAlignment="Center" -->
-    <!--             VerticalAlignment="Bottom" -->
-    <!--             Content="{x:Bind buttonText}"/> -->
-    <!-- </StackPanel> -->
-    
 </ContentDialog>

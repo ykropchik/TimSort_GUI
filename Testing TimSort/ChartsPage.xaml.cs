@@ -20,29 +20,24 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Controls;
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace Testing_TimSort
 {
-
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class ChartsPage : Page
     {
-        
-        private string TestName { get; set; }
+        public struct Results
+        {
+            public long Time { get; set; }
+            public ulong Comparisons { get; set; }
+            public ulong Transpositions { get; set; }
+        }
         public class SortingResult
         {
-            public string Name { get; set; }
-            public int TimeTimSort { get; set; }
-            public int ComparisonsTimSort { get; set; }
-            public int TranspositionTimSort { get; set; }
-            public int TimeInsert { get; set; }
-            public int ComparisonsInsert { get; set; }
-            public int TranspositionInsert { get; set; }
+            public string FileName { get; set; }
+            public Results TimSort { get; set; }
+            public Results Insertion { get; set; }
         }
-
+        
+        private int TestIndex { get; set; }
         private List<SortingResult> resultsList = new List<SortingResult>();
         
         public ChartsPage()
@@ -53,8 +48,8 @@ namespace Testing_TimSort
         
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            TestName = (string) e.Parameter;
-            resultsList = JsonParser.GetTestData(TestName);
+            TestIndex = (int) e.Parameter;
+            resultsList = JsonParser.GetTestData(TestIndex);
             CreateCharts();
         }
 

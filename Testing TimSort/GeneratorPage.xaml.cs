@@ -142,7 +142,7 @@ namespace Testing_TimSort
 
             if (folder != null)
             {
-                var progressDialog = new ProgressDialog("Генерируем последовательности", "OK");
+                var progressDialog = new ProgressDialog("Генерируем последовательности");
                 progressDialog.ShowAsync();
                 
                 var seqGenerator = new SequencesGenerator();
@@ -151,19 +151,13 @@ namespace Testing_TimSort
 
                 while (collection.Count != 0)
                 {
-                    //sequences.Add((seqGenerator.GenerateSequence(collection[0].Quantity, collection[0].SequenceType), collection[0].Quantity, collection[0].SequenceType));
-                    //await Task.Delay(1000);
+                    sequences.Add((seqGenerator.GenerateSequence(collection[0].Quantity, collection[0].SequenceType), collection[0].Quantity, collection[0].SequenceType));
                     collection.RemoveAt(0);
                 }
 
-
-                sequences.Add((new []{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 11, 2));
-
                 progressDialog.ContentText = "Сохраняем последовательности";
                 var fileCreator = new FileCreator();
-                //fileCreator.CreateFiles(sequences, folder);
-
-                await Task.Delay(2000);
+                await fileCreator.CreateFiles(sequences, folder);
                 progressDialog.Hide();
                 
                 var completeDialog = new CompleteDialog("Готово!", "ОК");

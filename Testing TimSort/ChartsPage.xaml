@@ -12,20 +12,20 @@
     <controls:TabView x:Name="TabView" IsAddTabButtonVisible="False" VerticalAlignment="Stretch">
         <controls:TabViewItem Header="Время" IsClosable="False">
             <charting:Chart x:Name="TimeChart" Width="auto" Height="auto">
-                <charting:ColumnSeries Title="TimSort" Margin="0" IndependentValuePath="Name" DependentValuePath="TimeTimSort" IsSelectionEnabled="True"/>
-                <charting:ColumnSeries Title="Вставки"  Margin="0" IndependentValuePath="Name" DependentValuePath="TimeInsert" IsSelectionEnabled="True"/>
+                <charting:ColumnSeries Title="TimSort" Margin="0" IndependentValuePath="FileName" DependentValuePath="TimSort.Time" IsSelectionEnabled="True"/>
+                <charting:ColumnSeries Title="Вставки"  Margin="0" IndependentValuePath="FileName" DependentValuePath="Insertion.Time" IsSelectionEnabled="True"/>
             </charting:Chart>
         </controls:TabViewItem>
         <controls:TabViewItem Header="Перестановки" IsClosable="False" Width="auto" Height="auto">
             <charting:Chart x:Name="TranspositionChart" Height="auto" Width="auto">
-                <charting:ColumnSeries Title="TimSort" IndependentValuePath="Name" DependentValuePath="TranspositionTimSort" IsSelectionEnabled="True"/>
-                <charting:ColumnSeries Title="Вставки"  IndependentValuePath="Name" DependentValuePath="TranspositionInsert" IsSelectionEnabled="True"/>
+                <charting:ColumnSeries Title="TimSort" IndependentValuePath="FileName" DependentValuePath="TimSort.Transpositions" IsSelectionEnabled="True"/>
+                <charting:ColumnSeries Title="Вставки"  IndependentValuePath="FileName" DependentValuePath="Insertion.Transpositions" IsSelectionEnabled="True"/>
             </charting:Chart>
         </controls:TabViewItem>
         <controls:TabViewItem Header="Сравнения" IsClosable="False" Width="auto" Height="auto">
             <charting:Chart x:Name="ComparisonsChart" Height="auto" Width="auto">
-                <charting:ColumnSeries Title="TimSort" IndependentValuePath="Name" DependentValuePath="ComparisonsTimSort" IsSelectionEnabled="True"/>
-                <charting:ColumnSeries Title="Вставки"  IndependentValuePath="Name" DependentValuePath="ComparisonsInsert" IsSelectionEnabled="True"/>
+                <charting:ColumnSeries Title="TimSort" IndependentValuePath="FileName" DependentValuePath="TimSort.Comparisons" IsSelectionEnabled="True"/>
+                <charting:ColumnSeries Title="Вставки"  IndependentValuePath="FileName" DependentValuePath="Insertion.Comparisons" IsSelectionEnabled="True"/>
             </charting:Chart>
         </controls:TabViewItem>
     </controls:TabView>

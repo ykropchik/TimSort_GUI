@@ -1,20 +1,21 @@
-﻿namespace Testing_TimSort
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using Windows.Graphics.Printing;
+
+namespace Testing_TimSort
 {
     public class TimSort
     {
-        private int MinRunLength(int size)
+        public static (ulong, ulong, long) Sorting(int[] array)
         {
-            return 0;
-        }
-
-        private void InsertionSort()
-        {
+            ulong transposition = 0;
+            ulong comparisons = 0;
+            /*var stopWatch = new Stopwatch();
             
-        }
-
-        private void Merge()
-        {
+            stopWatch.Start();
+            stopWatch.Stop();*/
             
+            return (comparisons, transposition, 0); // stopWatch.ElapsedMilliseconds
         }
     }
 }

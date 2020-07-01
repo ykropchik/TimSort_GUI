@@ -98,6 +98,9 @@
     <Compile Include="ChartsPage.xaml.cs">
       <DependentUpon>ChartsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NameRequestDialog.xaml.cs">
+      <DependentUpon>NameRequestDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResultsPage.xaml.cs">
       <DependentUpon>ResultsPage.xaml</DependentUpon>
     </Compile>
@@ -124,10 +127,12 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\FileCreator.cs" />
+    <Compile Include="src\FileReader.cs" />
     <Compile Include="src\InsertionSort.cs" />
-    <Compile Include="src\jsonParser.cs" />
+    <Compile Include="src\JsonParser.cs" />
+    <Compile Include="src\JsonWriter.cs" />
     <Compile Include="src\ReportCreator.cs" />
-    <Compile Include="src\Sorting.cs" />
+    <Compile Include="src\Experiment.cs" />
     <Compile Include="src\SequencesGenerator.cs" />
     <Compile Include="src\TimSort.cs" />
   </ItemGroup>
@@ -138,8 +143,9 @@
     <None Include="TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\algBackground1.jpg" />
-    <Content Include="Assets\algBackground2.jpg" />
+    <Content Include="Assets\n.png" />
+    <Content Include="Assets\nlogn.png" />
+    <Content Include="Assets\n^2.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -155,6 +161,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="ChartsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NameRequestDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -192,9 +202,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes">
-      <Version>3.2.0-ci1494</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.7</Version>
     </PackageReference>

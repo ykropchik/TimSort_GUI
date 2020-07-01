@@ -10,15 +10,17 @@ namespace Testing_TimSort
             switch (seqType)
             {
                 case 0:
-                    return new int[1];
+                    return GenerateIncreasingSeq(quantity);
                 case 1:
-                    return new int[1];
+                    return GenerateDecreasingSeq(quantity);
                 case 2:
-                    return new int[1];
+                    return GenerateRandomSeq(quantity);
                 case 3:
-                    return new int[1];
+                    return GenerateSameSeq(quantity);
                 case 4:
-                    return new int[1];
+                    return GeneratePartiallyOrderedSeq(quantity);
+                case 5:
+                    return GenerateWorstForTimSort(quantity);
                 default:
                     throw new NotImplementedException();
             }
@@ -26,25 +28,61 @@ namespace Testing_TimSort
 
         private int[] GenerateIncreasingSeq(int quantity)
         {
-            return new int[quantity];
+            var result = new int[quantity];
+
+            for (int i = 0; i < quantity; i++)
+            {
+                result[i] = i;
+            }
+            
+            return result;
         }
         
         private int[] GenerateDecreasingSeq(int quantity)
         {
-            return new int[quantity];
+            var result = new int[quantity];
+
+            for (int i = 0; i < quantity; i++)
+            {
+                result[i] = quantity - i;
+            }
+            
+            return result;
         }
         
         private int[] GenerateRandomSeq(int quantity)
         {
-            return new int[quantity];
+            var result = new int[quantity];
+            var rand = new Random();
+            
+            for (int i = 0; i < quantity; i++)
+            {
+                result[i] = rand.Next();;
+            }
+            
+            return result;
         }
         
         private int[] GenerateSameSeq(int quantity)
         {
-            return new int[quantity];
+            var result = new int[quantity];
+            var rand = new Random();
+            int value = rand.Next();
+            
+            for (int i = 0; i < quantity; i++)
+            {
+                result[i] = value;
+            }
+            
+            return result;
         }
         
         private int[] GeneratePartiallyOrderedSeq(int quantity)
+        {
+            return new int[quantity];
+        }
+        
+        private int[] GenerateWorstForTimSort(int quantity)
         {
             return new int[quantity];
         }
