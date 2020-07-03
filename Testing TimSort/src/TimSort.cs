@@ -13,7 +13,7 @@ namespace Testing_TimSort
         private static ulong _transposition;
         private static ulong _comparisons;
         private static int[] _array;
-        private static Stack<RunInfo> runStack;
+        private static Stack<RunInfo> _runStack;
         
         private struct RunInfo
         {
@@ -35,7 +35,7 @@ namespace Testing_TimSort
         {
             for (int i = subArr.Start + 1; i < subArr.Start + subArr.Length; i++)
             {
-                for (int j = i; j > 0; j--)
+                for (int j = i; j > subArr.Start; j--)
                 {
                     _comparisons++;
                     if (_array[j - 1] > _array[j])
@@ -73,29 +73,29 @@ namespace Testing_TimSort
             while (!isAlright)
             {
                 RunInfo first, second;
-                if (runStack.Count > 2)
+                if (_runStack.Count > 2)
                 {
-                    var third = runStack.Pop();
-                    second = runStack.Pop();
-                    first = runStack.Pop();
+                    var third = _runStack.Pop();
+                    second = _runStack.Pop();
+                    first = _runStack.Pop();
 
                     if (first.Length <= second.Length + third.Length || second.Length <= third.Length)
                     {
                         if (first.Length <= third.Length)
                         {
                             Merge(first, second);
-                            runStack.Push(new RunInfo()
+                            _runStack.Push(new RunInfo()
                             {
                                 Start = first.Start,
                                 Length = first.Length + second.Length
                             });
-                            runStack.Push(third);
+                            _runStack.Push(third);
                         }
                         else
                         {
                             Merge(second, third);
-                            runStack.Push(first);
-                            runStack.Push(new RunInfo()
+                            _runStack.Push(first);
+                            _runStack.Push(new RunInfo()
                             {
                                 Start = second.Start,
                                 Length = second.Length + third.Length
@@ -104,17 +104,20 @@ namespace Testing_TimSort
                     }
                     else
                     {
+                        _runStack.Push(first);
+                        _runStack.Push(second);
+                        _runStack.Push(third);
                         isAlright = true;
                     }
-                } else if (runStack.Count > 1)
+                } else if (_runStack.Count > 1)
                 {
-                    second = runStack.Pop();
-                    first = runStack.Pop();
+                    second = _runStack.Pop();
+                    first = _runStack.Pop();
 
                     if (first.Length <= second.Length)
                     {
                         Merge(first, second);
-                        runStack.Push(new RunInfo()
+                        _runStack.Push(new RunInfo()
                         {
                             Start = first.Start,
                             Length = first.Length + second.Length
@@ -122,6 +125,8 @@ namespace Testing_TimSort
                     }
                     else
                     {
+                        _runStack.Push(first);
+                        _runStack.Push(second);
                         isAlright = true;
                     }
                 }
@@ -173,12 +178,36 @@ namespace Testing_TimSort
                 }
                 
                 int firstPointer = first.Start + first.Length - 1, 
-                    secondPointer = tempArray.Length;
+                    secondPointer = tempArray.Length - 1;
                 for (int i = second.Start + second.Length - 1; i >= first.Start; i--)
                 {
-                    _array[i] = tempArray[firstPointer] > _array[secondPointer]
-                        ? tempArray[firstPointer--]
-                        : _array[secondPointer--];
+                    _comparisons++;
+                    if (secondPointer < 0)
+                    {
+                        _array[i] = _array[firstPointer--];
+                    } else if (firstPointer < first.Start)
+                    {
+                        _array[i] = tempArray[secondPointer--];
+                    }
+                    else
+                    {
+                        _array[i] = tempArray[secondPointer] > _array[firstPointer]
+                            ? tempArray[secondPointer--]
+                            : _array[firstPointer--];
+                    }
+                    
+                }
+            }
+        }
+
+        private static void CheckOrder()
+        {
+            int errorCount = 0;
+            for (int i = 1; i < _array.Length; i++)
+            {
+                if (_array[i - 1] > _array[i])
+                {
+                    errorCount++;
                 }
             }
         }
@@ -192,19 +221,19 @@ namespace Testing_TimSort
             
             int arrayLength = array.Length;
             int minRun = GetMinRun(arrayLength);
-            runStack = new Stack<RunInfo>();
+            _runStack = new Stack<RunInfo>();
             RunInfo tempRun = new RunInfo();
             int pointer = 0;
             stopWatch.Start();
 
-            while (pointer < arrayLength - 2)
+            while (pointer < arrayLength - 1)
             {
                 tempRun.Start = pointer;
                 tempRun.Length = 2;
                 if (array[pointer] > array[pointer + 1])
                 {
                     pointer++;
-                    while (_array[pointer] > _array[pointer + 1] && pointer < arrayLength - 2)
+                    while (_array[pointer] > _array[pointer + 1] && pointer < arrayLength - 1)
                     {
                         tempRun.Length++;
                         pointer++;
@@ -212,7 +241,7 @@ namespace Testing_TimSort
                     
                     Overturn(tempRun);
 
-                    while (tempRun.Length < minRun && pointer < arrayLength)
+                    while (tempRun.Length < minRun && pointer < arrayLength - 1)
                     {
                         tempRun.Length++;
                         pointer++;
@@ -221,7 +250,7 @@ namespace Testing_TimSort
                 else
                 {
                     pointer++;
-                    while ((tempRun.Length < minRun || _array[pointer] <= _array[pointer + 1]) && pointer < arrayLength - 2)
+                    while ((tempRun.Length < minRun || _array[pointer] <= _array[pointer + 1]) && pointer < arrayLength - 1)
                     {
                         tempRun.Length++;
                         pointer++;
@@ -229,14 +258,14 @@ namespace Testing_TimSort
                 }
                 
                 Insertion(tempRun);
-                runStack.Push(tempRun);
+                _runStack.Push(tempRun);
                 CheckInvariant();
-                if (runStack.Count == MAX_STACK)
+                if (_runStack.Count == MAX_STACK)
                 {
-                    var second = runStack.Pop();
-                    var first = runStack.Pop();
+                    var second = _runStack.Pop();
+                    var first = _runStack.Pop();
                     Merge(first, second);
-                    runStack.Push(new RunInfo()
+                    _runStack.Push(new RunInfo()
                     {
                         Start = first.Start,
                         Length = first.Length + second.Length
@@ -247,12 +276,12 @@ namespace Testing_TimSort
                 pointer++;
             }
 
-            while (runStack.Count > 1)
+            while (_runStack.Count > 1)
             {
-                var second = runStack.Pop();
-                var first = runStack.Pop();
+                var second = _runStack.Pop();
+                var first = _runStack.Pop();
                 Merge(first, second);
-                runStack.Push(new RunInfo()
+                _runStack.Push(new RunInfo()
                 {
                     Start = first.Start,
                     Length = first.Length + second.Length
@@ -261,6 +290,8 @@ namespace Testing_TimSort
             }
             
             stopWatch.Stop();
+
+            CheckOrder();
             
             return (_comparisons, _transposition, stopWatch.ElapsedMilliseconds);
         }
