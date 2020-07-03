@@ -91,7 +91,7 @@
                                                         VerticalAlignment="Center" 
                                                         Margin="0 0 36 0"
                                                         Minimum="10000"
-                                                        Maximum="10000000"
+                                                        Maximum="1000000"
                                                         Value="{Binding ElementName=QuantitySlider, Path=Value, Mode=TwoWay}"/>
                                     <Slider Grid.Column="2" 
                                             x:Name="QuantitySlider"
@@ -99,7 +99,7 @@
                                             VerticalAlignment="Center"
                                             Width="200" 
                                             Minimum="10000" 
-                                            Maximum="10000000" 
+                                            Maximum="1000000" 
                                             StepFrequency="10000"
                                             SmallChange="10" 
                                             LargeChange="100" 

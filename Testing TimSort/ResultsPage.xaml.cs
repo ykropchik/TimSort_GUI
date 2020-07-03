@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -134,6 +135,22 @@ namespace Testing_TimSort
                     progressDialog.Hide();
                 }
             }
+        }
+        
+        private void HelpBut_OnClick(object sender, RoutedEventArgs e)
+        {
+            HelpTip1.IsOpen = true;
+        }
+        
+        private void TeachingTip_OnActionButtonClick(TeachingTip sender, object args)
+        {
+            sender.IsOpen = false;
+            HelpTip2.IsOpen = true;
+        }
+        
+        private void TeachingTip_OnCloseButtonClick(TeachingTip sender, object args)
+        {
+            sender.IsOpen = false;
         }
     }
 }

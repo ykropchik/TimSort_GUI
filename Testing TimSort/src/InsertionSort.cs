@@ -16,7 +16,7 @@ namespace Testing_TimSort
             stopWatch.Start();
             for (int i = 1; i < array.Length; i++)
             {
-                for (int j = i; (j > 0); j--)
+                for (int j = i; j > 0; j--)
                 {
                     comparisons++;
                     if (array[j - 1] > array[j])

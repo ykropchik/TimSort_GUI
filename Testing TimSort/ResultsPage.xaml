@@ -9,15 +9,7 @@
     mc:Ignorable="d"
     Padding="12">
     
-    <!-- <Grid> -->
-    <!--     <controls:TabView IsAddTabButtonVisible="False"> -->
-    <!--         <controls:TabViewItem Header="Время" IsClosable="False"/> -->
-    <!--         <controls:TabViewItem Header="Сравнения" IsClosable="False"/> -->
-    <!--         <controls:TabViewItem Header="Перестановки" IsClosable="False"/> -->
-    <!--     </controls:TabView> -->
-    <!-- </Grid> -->
-    
-    <Grid Background="{ThemeResource SystemControlAcrylicElementBrush}">
+    <Grid x:Name="MainGrid" Background="{ThemeResource SystemControlAcrylicElementBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
@@ -29,18 +21,18 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9F5;"/>
                 </AppBarButton.Icon>
                 <Button.Resources>
-                    <!-- <controls:TeachingTip x:Name="HelpTip1" -->
-                    <!--                       Target="{x:Bind AddBut}" -->
-                    <!--                       PreferredPlacement="BottomLeft" -->
-                    <!--                       Title="Добавить конфигурацию" -->
-                    <!--                       Subtitle="Создает новую конфигурацию последовательности" -->
-                    <!--                       ActionButtonClick="TeachingTip_OnActionButtonClick" -->
-                    <!--                       ActionButtonContent="Далее" -->
-                    <!--                       CloseButtonClick="TeachingTip_OnCloseButtonClick" -->
-                    <!--                       CloseButtonContent="Закрыть"/> -->
+                    <controls:TeachingTip x:Name="HelpTip1"
+                                          Target="{x:Bind CreateBut}"
+                                          PreferredPlacement="BottomLeft"
+                                          Title="Создать"
+                                          Subtitle="Провести эксперимент, и создать отчет"
+                                          ActionButtonClick="TeachingTip_OnActionButtonClick"
+                                          ActionButtonContent="Далее"
+                                          CloseButtonClick="TeachingTip_OnCloseButtonClick"
+                                          CloseButtonContent="Закрыть"/>
                 </Button.Resources>
             </AppBarButton>    
-            <AppBarButton x:Name="HelpBut" Icon="Help" Label="Помощь"/>
+            <AppBarButton x:Name="HelpBut" Icon="Help" Label="Помощь" Click="HelpBut_OnClick"/>
         </StackPanel>
         
         <GridView x:Name="GridViewRight" 
@@ -96,5 +88,15 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
         </GridView>
+        
+        <Grid.Resources>
+            <controls:TeachingTip x:Name="HelpTip2"
+                                  Target="{x:Bind MainGrid}"
+                                  PreferredPlacement="BottomLeft"
+                                  Title="Отчеты"
+                                  Subtitle="Здесь появляются отчеты, которые можно открыть и посмотреть результаты. Чтобы удалить отчет нажмите на отчет ЛКМ и нажмите 'Удалить'"
+                                  CloseButtonClick="TeachingTip_OnCloseButtonClick"
+                                  CloseButtonContent="Закрыть"/>
+        </Grid.Resources>
     </Grid>
 </Page>
