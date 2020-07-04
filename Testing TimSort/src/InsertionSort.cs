@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Testing_TimSort
 {
     public static class InsertionSort
     {
-        public static (ulong, ulong, long) Sorting(int[] array)
+        public static async Task<(ulong, ulong, long)> Sorting(int[] array)
         {
             ulong transposition = 0;
             ulong comparisons = 0;

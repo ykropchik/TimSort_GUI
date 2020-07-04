@@ -15,8 +15,8 @@ namespace Testing_TimSort
             for (int i = 0; i < filesList.Count; i++)
             {
                 var array = await FileReader.ReadFile(filesList[i]);
-                var insert = ((ulong) 0, (ulong) 0, 0); //InsertionSort.Sorting(array)};
-                var timsort = TimSort.Sorting(array);
+                var insert = await InsertionSort.Sorting(array); //((ulong) 0, (ulong) 0, 0);
+                var timsort = await TimSort.Sorting(array);
                 
                 result.Add(new ChartsPage.SortingResult()
                 {

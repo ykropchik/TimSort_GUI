@@ -52,15 +52,6 @@
             
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local:ResultsItem">
-                    <!-- <AppBarButton x:Name="FolderButton"  -->
-                    <!--               Label="{x:Bind FolderName}"  -->
-                    <!--               HorizontalAlignment="Stretch"  -->
-                    <!--               VerticalAlignment="Stretch"> -->
-                    <!--     <AppBarButton.Icon> -->
-                    <!--         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF12B;"/> -->
-                    <!--     </AppBarButton.Icon> -->
-                    <!-- </AppBarButton> -->
-                    
                     <UserControl>
                         <UserControl.ContextFlyout>
                             <MenuFlyout>
@@ -70,7 +61,7 @@
                             </MenuFlyout>
                         </UserControl.ContextFlyout>
                         
-                        <StackPanel Orientation="Vertical" Padding="8">
+                        <StackPanel Orientation="Vertical" Padding="8" Width="100">
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9F9;" FontSize="64"/>
                             <TextBlock Text="{x:Bind ResultName}" MaxLines="2" TextTrimming="CharacterEllipsis" FontSize="20" HorizontalAlignment="Center"/>
                             <ToolTipService.ToolTip>

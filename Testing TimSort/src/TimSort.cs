@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.Graphics.Printing;
 using Windows.UI.Xaml.Documents;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
@@ -140,7 +141,8 @@ namespace Testing_TimSort
         private static void Merge(RunInfo first, RunInfo second)
         {
             int[] tempArray;
-
+            byte firstCounter = 0, 
+                secondCounter = 0;
             if (first.Length <= second.Length)
             {
                 tempArray = new int[first.Length];
@@ -153,7 +155,6 @@ namespace Testing_TimSort
                     secondPointer = second.Start;
                 for (int i = first.Start; i < second.Start + second.Length - 1; i++)
                 {
-                    _comparisons++;
                     if (firstPointer >= first.Length)
                     {
                         _array[i] = _array[secondPointer++];
@@ -163,9 +164,21 @@ namespace Testing_TimSort
                     }
                     else
                     {
-                        _array[i] = tempArray[firstPointer] <= _array[secondPointer]
-                            ? tempArray[firstPointer++]
-                            : _array[secondPointer++];
+                        if (firstCounter > MIN_GALLOP)
+                        {
+                            
+                        }
+                        _comparisons++;
+                        if (tempArray[firstPointer] <= _array[secondPointer])
+                        {
+                            _array[i] = tempArray[firstPointer++];
+                            firstCounter++;
+                        }
+                        else
+                        {
+                            _array[i] = _array[secondPointer++];
+                            secondCounter++;
+                        }
                     }
                 }
             }
@@ -212,7 +225,7 @@ namespace Testing_TimSort
             }
         }
         
-        public static (ulong, ulong, long) Sorting(int[] array)
+        public static async Task<(ulong, ulong, long)> Sorting(int[] array)
         {
             _array = array;
             _transposition = 0;
@@ -233,7 +246,7 @@ namespace Testing_TimSort
                 if (array[pointer] > array[pointer + 1])
                 {
                     pointer++;
-                    while (_array[pointer] > _array[pointer + 1] && pointer < arrayLength - 1)
+                    while (pointer < arrayLength - 1 && _array[pointer] > _array[pointer + 1])
                     {
                         tempRun.Length++;
                         pointer++;
@@ -241,7 +254,7 @@ namespace Testing_TimSort
                     
                     Overturn(tempRun);
 
-                    while (tempRun.Length < minRun && pointer < arrayLength - 1)
+                    while (pointer < arrayLength - 1 && tempRun.Length < minRun)
                     {
                         tempRun.Length++;
                         pointer++;
@@ -250,7 +263,7 @@ namespace Testing_TimSort
                 else
                 {
                     pointer++;
-                    while ((tempRun.Length < minRun || _array[pointer] <= _array[pointer + 1]) && pointer < arrayLength - 1)
+                    while (pointer < arrayLength - 1 && (tempRun.Length < minRun || _array[pointer] <= _array[pointer + 1]))
                     {
                         tempRun.Length++;
                         pointer++;

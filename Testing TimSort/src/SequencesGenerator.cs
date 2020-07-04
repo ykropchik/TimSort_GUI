@@ -79,7 +79,20 @@ namespace Testing_TimSort
         
         private int[] GeneratePartiallyOrderedSeq(int quantity)
         {
-            return new int[quantity];
+            var result = GenerateIncreasingSeq(quantity);
+            var rand = new Random();
+            
+            for (int i = 0; i < quantity / 4; i++)
+            {
+                int pointer1 = rand.Next(quantity - 1);
+                int pointer2 = rand.Next(quantity - 1);
+
+                int temp = result[pointer1];
+                result[pointer1] = result[pointer2];
+                result[pointer2] = temp;
+            }
+            
+            return result;
         }
         
         private int[] GenerateWorstForTimSort(int quantity)

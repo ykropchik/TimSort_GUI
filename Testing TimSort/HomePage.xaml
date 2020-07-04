@@ -61,21 +61,21 @@
             <TextBlock TextAlignment="Center" Margin="0 0 0 12">
                 Эффективность:
             </TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="12 0 12 8">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
                 <TextBlock TextAlignment="Left" Margin="0 0 24 0">
                     Лучшее время: 
                 </TextBlock>
                 <Image Source="Assets/n.png" Height="20" HorizontalAlignment="Right"/>
             </StackPanel>
             
-            <StackPanel Orientation="Horizontal" Margin="12 0 12 8">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
                 <TextBlock TextAlignment="Left" Margin="0 0 24 0">
                     Худшее время: 
                 </TextBlock>
                 <Image Source="Assets/nlogn.png" Height="20" HorizontalAlignment="Right"/>
             </StackPanel>
             
-            <StackPanel Orientation="Horizontal" Margin="12 0 12 8">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
                 <TextBlock TextAlignment="Left" Margin="0 0 24 0">
                     Среднее время: 
                 </TextBlock>
@@ -94,21 +94,21 @@
             <TextBlock TextAlignment="Center" Margin="0 0 0 12">
                 Эффективность:
             </TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="12 0 12 8">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
                 <TextBlock TextAlignment="Left" Margin="0 0 24 0">
                     Лучшее время: 
                 </TextBlock>
                 <Image Source="Assets/n.png" Height="20" HorizontalAlignment="Right"/>
             </StackPanel>
             
-            <StackPanel Orientation="Horizontal" Margin="12 0 12 8">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
                 <TextBlock TextAlignment="Left" Margin="0 0 24 0">
                     Худшее время: 
                 </TextBlock>
                 <Image Source="Assets/n^2.png" Height="20" HorizontalAlignment="Right"/>
             </StackPanel>
             
-            <StackPanel Orientation="Horizontal" Margin="12 0 12 8">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
                 <TextBlock TextAlignment="Left" Margin="0 0 24 0">
                     Среднее время: 
                 </TextBlock>
