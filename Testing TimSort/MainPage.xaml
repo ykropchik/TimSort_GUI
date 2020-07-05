@@ -11,7 +11,8 @@
         <NavigationView x:Name="NavigationViewControl"
                         Loaded="NavView_Loaded"
                         ItemInvoked="NavView_ItemInvoked"
-                        BackRequested="NavView_BackRequested">
+                        BackRequested="NavView_BackRequested"
+                        IsSettingsVisible="False">
             <NavigationView.MenuItems>
                 <NavigationViewItem Tag="Home" Content="Главная">
                     <NavigationViewItem.Icon>
@@ -23,11 +24,6 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE90F;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <!-- <NavigationViewItem  Tag="Laboratory" Content="Лаборатория"> -->
-                <!--     <NavigationViewItem.Icon> -->
-                <!--         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEF3C;"/> -->
-                <!--     </NavigationViewItem.Icon> -->
-                <!-- </NavigationViewItem> -->
                 <NavigationViewItem  Tag="Charts" Content="Результаты">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D2;"/>

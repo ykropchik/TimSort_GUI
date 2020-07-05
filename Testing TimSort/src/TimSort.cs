@@ -63,6 +63,7 @@ namespace Testing_TimSort
                 temp = _array[end - i];
                 _array[end - i] = _array[subArr.Start + i];
                 _array[subArr.Start + i] = temp;
+                _transposition++;
             }
         }
 
@@ -141,8 +142,7 @@ namespace Testing_TimSort
         private static void Merge(RunInfo first, RunInfo second)
         {
             int[] tempArray;
-            byte firstCounter = 0, 
-                secondCounter = 0;
+
             if (first.Length <= second.Length)
             {
                 tempArray = new int[first.Length];
@@ -155,6 +155,7 @@ namespace Testing_TimSort
                     secondPointer = second.Start;
                 for (int i = first.Start; i < second.Start + second.Length - 1; i++)
                 {
+                    _comparisons++;
                     if (firstPointer >= first.Length)
                     {
                         _array[i] = _array[secondPointer++];
@@ -164,21 +165,9 @@ namespace Testing_TimSort
                     }
                     else
                     {
-                        if (firstCounter > MIN_GALLOP)
-                        {
-                            
-                        }
-                        _comparisons++;
-                        if (tempArray[firstPointer] <= _array[secondPointer])
-                        {
-                            _array[i] = tempArray[firstPointer++];
-                            firstCounter++;
-                        }
-                        else
-                        {
-                            _array[i] = _array[secondPointer++];
-                            secondCounter++;
-                        }
+                        _array[i] = tempArray[firstPointer] <= _array[secondPointer]
+                            ? tempArray[firstPointer++]
+                            : _array[secondPointer++];
                     }
                 }
             }
@@ -304,7 +293,7 @@ namespace Testing_TimSort
             
             stopWatch.Stop();
 
-            CheckOrder();
+            //CheckOrder();
             
             return (_comparisons, _transposition, stopWatch.ElapsedMilliseconds);
         }

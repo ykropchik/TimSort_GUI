@@ -9,12 +9,12 @@
   <Identity
     Name="9924836e-d7cf-493b-82f1-df238f8fb7c7"
     Publisher="CN=YKROPCHIK"
-    Version="1.0.0.0" />
+    Version="1.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="9924836e-d7cf-493b-82f1-df238f8fb7c7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Testing_TimSort</DisplayName>
+    <DisplayName>Эксперимент</DisplayName>
     <PublisherDisplayName>YKROPCHIK</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -32,11 +32,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="Testing_TimSort.App">
       <uap:VisualElements
-        DisplayName="Testing_TimSort"
+        DisplayName="Курсовой проект"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Testing_TimSort"
-        BackgroundColor="transparent">
+        BackgroundColor="transparent" Description="Курсовой проект">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
