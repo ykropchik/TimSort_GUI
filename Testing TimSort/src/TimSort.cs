@@ -12,6 +12,7 @@ namespace Testing_TimSort
         private const byte MIN_GALLOP = 7;
         private const byte MAX_STACK = 40;
         private static ulong _transposition;
+        private static ulong _transpositionDoub;
         private static ulong _comparisons;
         private static int[] _array;
         private static Stack<RunInfo> _runStack;
@@ -159,15 +160,18 @@ namespace Testing_TimSort
                     if (firstPointer >= first.Length)
                     {
                         _array[i] = _array[secondPointer++];
+                        _transpositionDoub++;
                     } else if (secondPointer >= second.Start + second.Length)
                     {
                         _array[i] = tempArray[firstPointer++];
+                        _transpositionDoub++;
                     }
                     else
                     {
                         _array[i] = tempArray[firstPointer] <= _array[secondPointer]
                             ? tempArray[firstPointer++]
                             : _array[secondPointer++];
+                        _transpositionDoub++;
                     }
                 }
             }
@@ -187,15 +191,18 @@ namespace Testing_TimSort
                     if (secondPointer < 0)
                     {
                         _array[i] = _array[firstPointer--];
+                        _transpositionDoub++;
                     } else if (firstPointer < first.Start)
                     {
                         _array[i] = tempArray[secondPointer--];
+                        _transpositionDoub++;
                     }
                     else
                     {
                         _array[i] = tempArray[secondPointer] > _array[firstPointer]
                             ? tempArray[secondPointer--]
                             : _array[firstPointer--];
+                        _transpositionDoub++;
                     }
                     
                 }
@@ -219,6 +226,7 @@ namespace Testing_TimSort
             _array = array;
             _transposition = 0;
             _comparisons = 0;
+            _transpositionDoub = 0;
             var stopWatch = new Stopwatch();
             
             int arrayLength = array.Length;
@@ -232,11 +240,13 @@ namespace Testing_TimSort
             {
                 tempRun.Start = pointer;
                 tempRun.Length = 2;
+                _comparisons++;
                 if (array[pointer] > array[pointer + 1])
                 {
                     pointer++;
                     while (pointer < arrayLength - 1 && _array[pointer] > _array[pointer + 1])
                     {
+                        _comparisons++;
                         tempRun.Length++;
                         pointer++;
                     }
@@ -245,6 +255,7 @@ namespace Testing_TimSort
 
                     while (pointer < arrayLength - 1 && tempRun.Length < minRun)
                     {
+                        _comparisons++;
                         tempRun.Length++;
                         pointer++;
                     }
@@ -254,11 +265,13 @@ namespace Testing_TimSort
                     pointer++;
                     while (pointer < arrayLength - 1 && (tempRun.Length < minRun || _array[pointer] <= _array[pointer + 1]))
                     {
+                        _comparisons++;
                         tempRun.Length++;
                         pointer++;
                     }
                 }
                 
+                _comparisons += 2;
                 Insertion(tempRun);
                 _runStack.Push(tempRun);
                 CheckInvariant();
@@ -295,7 +308,7 @@ namespace Testing_TimSort
 
             //CheckOrder();
             
-            return (_comparisons, _transposition, stopWatch.ElapsedMilliseconds);
+            return (_comparisons, _transposition + _transpositionDoub*2, stopWatch.ElapsedMilliseconds);
         }
     }
 }

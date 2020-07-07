@@ -16,7 +16,7 @@
                 <charting:ColumnSeries Title="Вставки"  Margin="0" IndependentValuePath="FileName" DependentValuePath="Insertion.Time" IsSelectionEnabled="True"/>
             </charting:Chart>
         </controls:TabViewItem>
-        <controls:TabViewItem Header="Перестановки" IsClosable="False" Width="auto" Height="auto">
+        <controls:TabViewItem Header="Обмены" IsClosable="False" Width="auto" Height="auto">
             <charting:Chart x:Name="TranspositionChart" Height="auto" Width="auto">
                 <charting:ColumnSeries Title="TimSort" IndependentValuePath="FileName" DependentValuePath="TimSort.Transpositions" IsSelectionEnabled="True"/>
                 <charting:ColumnSeries Title="Вставки"  IndependentValuePath="FileName" DependentValuePath="Insertion.Transpositions" IsSelectionEnabled="True"/>

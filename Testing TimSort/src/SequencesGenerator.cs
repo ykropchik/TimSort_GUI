@@ -97,7 +97,26 @@ namespace Testing_TimSort
         
         private int[] GenerateWorstForTimSort(int quantity)
         {
-            return new int[quantity];
+            
+            var size = quantity;
+            
+            int flag = 0;           
+            while (size >= 64) {
+                flag |= size & 1;
+                size >>= 1;
+            }
+            size += flag;
+            var result = new int[size * (quantity / size + 1)];
+            
+            for (int i = 0; i < quantity/size + 1; i++)
+            {
+                result[i * size] = 1;
+                for (int j = 1; j < size; j++)
+                {
+                    result[j + size * i] = quantity - j - 1;
+                }
+            }
+            return result;
         }
     }
 }

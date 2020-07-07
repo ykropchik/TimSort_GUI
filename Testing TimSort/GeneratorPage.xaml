@@ -90,17 +90,18 @@
                                                         HorizontalAlignment="Left" 
                                                         VerticalAlignment="Center" 
                                                         Margin="0 0 36 0"
-                                                        Minimum="100"
+                                                        Minimum="32"
                                                         Maximum="1000000"
-                                                        Value="{Binding ElementName=QuantitySlider, Path=Value, Mode=TwoWay}"/>
+                                                        Value="{Binding ElementName=QuantitySlider, Path=Value, Mode=TwoWay}"
+                                                        />
                                     <Slider Grid.Column="2" 
                                             x:Name="QuantitySlider"
                                             HorizontalAlignment="Left" 
                                             VerticalAlignment="Center"
                                             Width="200" 
-                                            Minimum="100" 
+                                            Minimum="32" 
                                             Maximum="1000000" 
-                                            StepFrequency="1000"
+                                            StepFrequency="100"
                                             SmallChange="10" 
                                             LargeChange="100" 
                                             Value="{x:Bind Quantity, Mode=TwoWay}"  />
@@ -117,7 +118,7 @@
                                         <x:String>Случайная</x:String>
                                         <x:String>Одинаковые элементы</x:String>
                                         <x:String>Частично упорядоченная</x:String>
-                                        <!-- <x:String>Худший случай для TimSort</x:String> -->
+                                        <x:String>Худший случай для TimSort</x:String>
                                     </ComboBox>
                                     <AppBarButton x:Name="HoverButton" 
                                                   Grid.Column="4"
