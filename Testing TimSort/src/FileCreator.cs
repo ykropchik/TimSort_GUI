@@ -9,7 +9,7 @@ namespace Testing_TimSort
 {
     public class FileCreator
     {
-        string fileName;
+        string _fileName;
         public async Task CreateFiles(List<(int[], int, int)> sequences, StorageFolder folder)
         {
             StorageFile newFile; 
@@ -18,31 +18,31 @@ namespace Testing_TimSort
                 switch (sequences[i].Item3)
                 {
                     case 0:    
-                        fileName = "Increasing_" + sequences[i].Item2 + ".seq";
+                        _fileName = "Increasing_" + sequences[i].Item2 + ".seq";
                         break;
                     case 1:
-                        fileName = "Decreasing_" + sequences[i].Item2 + ".seq";
+                        _fileName = "Decreasing_" + sequences[i].Item2 + ".seq";
                         break;
                     case 2:
-                        fileName = "Random_" + sequences[i].Item2 + ".seq";
+                        _fileName = "Random_" + sequences[i].Item2 + ".seq";
                         break;
                     case 3:
-                        fileName = "Same_" + sequences[i].Item2 + ".seq";
+                        _fileName = "Same_" + sequences[i].Item2 + ".seq";
                         break;
                     case 4:
-                        fileName = "PartiallyOrdered_" + sequences[i].Item2 + ".seq";
+                        _fileName = "PartiallyOrdered_" + sequences[i].Item2 + ".seq";
                         break;
                     case 5:
-                        fileName = "WorsForTimSort_" + sequences[i].Item2 + ".seq";
+                        _fileName = "WorstForTimSort_" + sequences[i].Item2 + ".seq";
                         break;
                 }
                 
-                newFile = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+                newFile = await folder.CreateFileAsync(_fileName, CreationCollisionOption.ReplaceExisting);
                 await RecordFile(newFile, sequences[i].Item1);
             }
         }
 
-        private async Task RecordFile(StorageFile file, int[] sequence)
+        private static async Task RecordFile(IStorageFile file, IReadOnlyCollection<int> sequences)
         {
             using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
             {
@@ -50,13 +50,11 @@ namespace Testing_TimSort
                 {
                     using (var dataWriter = new Windows.Storage.Streams.DataWriter(outStream))
                     {
-                        //dataWriter.WriteString(sequence.Length + "\n");
-                        dataWriter.WriteInt32(sequence.Length);
+                        dataWriter.WriteInt32(sequences.Count);
 
-                        for (int i = 0; i < sequence.Length; i++)
+                        foreach (var sequence in sequences)
                         {
-                            //dataWriter.WriteString(sequence[i] + " ");
-                            dataWriter.WriteInt32(sequence[i]);
+                            dataWriter.WriteInt32(sequence);
                         }
                     
                         await dataWriter.StoreAsync();

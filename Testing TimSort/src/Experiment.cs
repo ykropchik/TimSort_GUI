@@ -6,37 +6,77 @@ using Windows.Storage;
 
 namespace Testing_TimSort
 {
-    public static class Experiment
+    public class Experiment
     {
-        public static async Task<List<ChartsPage.SortingResult>> Start(IReadOnlyList<StorageFile> filesList)
+        public async Task<List<ExperimentResult>> Start(IReadOnlyList<StorageFile> filesList)
         {
-            var result = new List<ChartsPage.SortingResult>();
+            var result = new List<ExperimentResult>();
 
-            for (int i = 0; i < filesList.Count; i++)
+            foreach (var file in filesList)
             {
-                var array = await FileReader.ReadFile(filesList[i]);
-                var insert = await InsertionSort.Sorting(array); //((ulong) 0, (ulong) 0, 0);
-                var timsort = await TimSort.Sorting(array);
+                var array = await FileReader.ReadFile(file);
+                var (insertComp, insertTrans, insertTime) = await new InsertionSort().StartTask(array);
+                var (timComp, timTrans, timTime) = await new TimSort().StartTask(array);
+                var (mergeComp, mergeTrans, mergeTime) = await new MergeSort().StartTask(array);
+                var (timAcceleration, insertAcceleration, mergeAcceleration) = GetAccelerations(timTime, insertTime, mergeTime);
                 
-                result.Add(new ChartsPage.SortingResult()
+                result.Add(new ExperimentResult()
                 {
-                    FileName = filesList[i].Name,
-                    TimSort = new ChartsPage.Results()
+                    FileName = file.Name,
+                    TimSort = new SortingResult()
                     {
-                        Time = timsort.Item3,
-                        Comparisons = timsort.Item1,
-                        Transpositions = timsort.Item2
+                        Time = timTime,
+                        Comparisons = timComp,
+                        Transpositions = timTrans,
+                        Acceleration = timAcceleration
                     } ,
-                    Insertion = new ChartsPage.Results()
+                    Insertion = new SortingResult()
                     {
-                        Time = insert.Item3,
-                        Comparisons = insert.Item1,
-                        Transpositions = insert.Item2
+                        Time = insertTime,
+                        Comparisons = insertComp,
+                        Transpositions = insertTrans,
+                        Acceleration = insertAcceleration
+                    },
+                    Merge = new SortingResult()
+                    {
+                        Time = mergeTime,
+                        Comparisons = mergeComp,
+                        Transpositions = mergeTrans,
+                        Acceleration = mergeAcceleration
                     }
                 });
             }
             
             return result;
+        }
+
+        /**
+         * @return List(timsort, insertion, merge)
+         */
+        private static (long, long, long) GetAccelerations(long timSortTime, long insertionTime, long mergeTime)
+        {
+            if (insertionTime >= timSortTime && insertionTime >= mergeTime)
+            {
+                return (
+                    insertionTime/(timSortTime == 0 ? 1 : timSortTime),
+                    1,
+                    insertionTime/(mergeTime == 0 ? 1 : mergeTime)
+                    );
+            }
+            
+            if (mergeTime >= timSortTime && mergeTime >= insertionTime)
+            {
+                return (
+                    mergeTime/(timSortTime == 0 ? 1 : timSortTime),
+                    mergeTime/(insertionTime == 0 ? 1 : insertionTime),
+                    1);
+            }
+            
+            return (
+                1,
+                timSortTime/(insertionTime == 0 ? 1 : insertionTime),
+                timSortTime/(mergeTime == 0 ? 1 : mergeTime)
+                );
         }
     }
 }

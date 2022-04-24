@@ -1,32 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Testing_TimSort
 {
-    public static class InsertionSort
+    class InsertionSort : Sorting
     {
-        public static async Task<(ulong, ulong, long)> Sorting(int[] array)
+        protected override (ulong, ulong) StartSort(int[] array)
         {
-            int[] tempArray = new int[array.Length];
-            array.CopyTo(tempArray, 0);
             ulong transposition = 0;
             ulong comparisons = 0;
-            var stopWatch = new Stopwatch();
-            
-            stopWatch.Start();
-            for (int i = 1; i < tempArray.Length; i++)
+            for (var i = 1; i < array.Length; i++)
             {
-                for (int j = i; j > 0; j--)
+                for (var j = i; j > 0; j--)
                 {
                     comparisons++;
-                    if (tempArray[j - 1] > tempArray[j])
+                    if (array[j - 1] > array[j])
                     {
-                        int temp = tempArray[j - 1];
-                        tempArray[j - 1] = tempArray[j];
-                        tempArray[j] = temp;
+                        (array[j - 1], array[j]) = (array[j], array[j - 1]);
                         transposition++;
                     }
                     else
@@ -35,9 +25,8 @@ namespace Testing_TimSort
                     }
                 }
             }
-            stopWatch.Stop();
             
-            return (comparisons, transposition, stopWatch.ElapsedMilliseconds);
+            return (comparisons, transposition);
         }
     }
 }

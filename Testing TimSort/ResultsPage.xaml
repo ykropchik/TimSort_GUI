@@ -35,8 +35,7 @@
             <AppBarButton x:Name="HelpBut" Icon="Help" Label="Помощь" Click="HelpBut_OnClick"/>
         </StackPanel>
         
-        <GridView x:Name="GridViewRight" 
-                  Background="White"
+        <GridView x:Name="GridViewRight"
                   Grid.Row="1"
                   HorizontalAlignment="Stretch"
                   SelectionMode="None"

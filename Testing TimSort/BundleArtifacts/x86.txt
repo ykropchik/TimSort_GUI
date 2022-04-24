@@ -1,2 +1,2 @@
-MainPackage=D:\ykrop\Desktop\GUI\TestGUI\CoursWork\Testing TimSort\bin\x86\Release\Testing TimSort_1.0.2.0_x86.msix
-SymbolPackage=D:\ykrop\Desktop\GUI\TestGUI\CoursWork\Testing TimSort\obj\x86\Release\Symbols\Testing TimSort_1.0.2.0_x86.appxsym
+MainPackage=D:\ykrop\Desktop\GUI\TestGUI\CoursWork\Testing TimSort\bin\x86\Release\Testing TimSort_1.0.3.0_x86.msix
+SymbolPackage=D:\ykrop\Desktop\GUI\TestGUI\CoursWork\Testing TimSort\obj\x86\Release\Symbols\Testing TimSort_1.0.3.0_x86.appxsym

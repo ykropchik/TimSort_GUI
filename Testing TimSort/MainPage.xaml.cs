@@ -33,7 +33,7 @@ namespace Testing_TimSort
             ("Home", typeof(HomePage)),
             ("Generation", typeof(GeneratorPage)),
             ("Laboratory", typeof(Laboratory)),
-            ("Charts", typeof(ResultsPage)),
+            ("Charts", typeof(ResultsPage))
         };
 
         public MainPage()

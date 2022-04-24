@@ -9,7 +9,7 @@ namespace Testing_TimSort
 {
     public static class JsonWriter
     {
-        public static async Task WriteResult(List<ChartsPage.SortingResult> results, string testName)
+        public static async Task WriteResult(List<ExperimentResult> results, string testName)
         {
             if (!File.Exists($@"{ApplicationData.Current.LocalFolder.Path}\{"Results.json"}"))
             {
@@ -33,13 +33,22 @@ namespace Testing_TimSort
                     {
                         ["time"] = JsonValue.CreateNumberValue(results[i].TimSort.Time),
                         ["comparisons"] = JsonValue.CreateNumberValue(results[i].TimSort.Comparisons),
-                        ["transpositions"] = JsonValue.CreateNumberValue(results[i].TimSort.Transpositions)
+                        ["transpositions"] = JsonValue.CreateNumberValue(results[i].TimSort.Transpositions),
+                        ["acceleration"] = JsonValue.CreateNumberValue(results[i].TimSort.Acceleration)
                     },
                     ["InsertionSort"] = new JsonObject()
                     {
                         ["time"] = JsonValue.CreateNumberValue(results[i].Insertion.Time),
                         ["comparisons"] = JsonValue.CreateNumberValue(results[i].Insertion.Comparisons),
-                        ["transpositions"] = JsonValue.CreateNumberValue(results[i].Insertion.Transpositions)
+                        ["transpositions"] = JsonValue.CreateNumberValue(results[i].Insertion.Transpositions),
+                        ["acceleration"] = JsonValue.CreateNumberValue(results[i].Insertion.Acceleration)
+                    },
+                    ["MergeSort"] = new JsonObject()
+                    {
+                        ["time"] = JsonValue.CreateNumberValue(results[i].Merge.Time),
+                        ["comparisons"] = JsonValue.CreateNumberValue(results[i].Merge.Comparisons),
+                        ["transpositions"] = JsonValue.CreateNumberValue(results[i].Merge.Transpositions),
+                        ["acceleration"] = JsonValue.CreateNumberValue(results[i].Merge.Acceleration)
                     }
                 });
             }
@@ -77,8 +86,10 @@ namespace Testing_TimSort
         {
             var streamWriter = File.CreateText($@"{ApplicationData.Current.LocalFolder.Path}\{"Results.json"}");
 
-            var jsonObject = new JsonObject();
-            jsonObject["experiments"] = new JsonArray();
+            var jsonObject = new JsonObject
+            {
+                ["experiments"] = new JsonArray()
+            };
             streamWriter.WriteLine(jsonObject.Stringify());
             streamWriter.Dispose();
         }

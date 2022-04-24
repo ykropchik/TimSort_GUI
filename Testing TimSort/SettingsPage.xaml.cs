@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage.Pickers;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -31,7 +32,16 @@ namespace Testing_TimSort
     {
         public SettingsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        private void OnThemeRadioButtonChecked(object sender, RoutedEventArgs e)
+        {
+            var selectedTheme = ((RadioButton)sender)?.Tag?.ToString();
+            if (selectedTheme != null)
+            {
+                ThemeHelper.RootTheme = App.GetEnum<ElementTheme>(selectedTheme);
+            }
         }
     }
 }

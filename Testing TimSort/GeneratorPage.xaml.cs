@@ -23,8 +23,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Controls;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace Testing_TimSort
 {
     public class ListItemData
@@ -37,21 +35,21 @@ namespace Testing_TimSort
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class GeneratorPage : Page
+    public sealed partial class GeneratorPage
     {
         public GeneratorPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
         
         /// <summary>
         /// ListView item collection.
         /// </summary>
-        ObservableCollection<ListItemData> collection = 
+        private readonly ObservableCollection<ListItemData> _collection = 
             new ObservableCollection<ListItemData>();
         
         // Create the standard Delete command.
-        StandardUICommand deleteCommand = new StandardUICommand(StandardUICommandKind.Delete);
+        private readonly StandardUICommand _deleteCommand = new StandardUICommand(StandardUICommandKind.Delete);
 
         /// <summary>
         /// Handler for the layout Grid control load event.
@@ -60,17 +58,7 @@ namespace Testing_TimSort
         /// <param name="e">Event args for the loaded event</param>
         private void ControlExample_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            deleteCommand.ExecuteRequested += DeleteCommand_ExecuteRequested;
-            
-            // for (var i = 0; i < 5; i++)
-            // {
-            //     collection.Add(
-            //         new ListItemData {
-            //             Quantity = 1000000,
-            //             SequenceType = -1,
-            //             Command = deleteCommand });
-            // }
+            _deleteCommand.ExecuteRequested += DeleteCommand_ExecuteRequested;
         }
 
         /// <summary>
@@ -82,7 +70,7 @@ namespace Testing_TimSort
         {
             var listView = (ListView)sender;
             // Populate the ListView with the item collection.
-            listView.ItemsSource = collection;
+            listView.ItemsSource = _collection;
         }
 
         /// <summary>
@@ -96,33 +84,32 @@ namespace Testing_TimSort
             // If possible, remove specified item from collection.
             if (args.Parameter != null)
             {
-                for (int i = 0; i < collection.Count; i++)
+                for (var i = 0; i < _collection.Count; i++)
                 {
-                    if (collection[i] == args.Parameter)
-                    {
-                        collection.RemoveAt(i);
-                        return;
-                    }
+                    if (_collection[i] != args.Parameter) continue;
+                    
+                    _collection.RemoveAt(i);
+                    return;
                 }
             }
             if (ListViewRight.SelectedIndex != -1)
             {
-                collection.RemoveAt(ListViewRight.SelectedIndex);
+                _collection.RemoveAt(ListViewRight.SelectedIndex);
             }
         }
 
         private void AddListElem(object sender, RoutedEventArgs e)
         {
-            collection.Add(
+            _collection.Add(
                 new ListItemData {
                     Quantity = 500000,
                     SequenceType = 2,
-                    Command = deleteCommand });
+                    Command = _deleteCommand });
         }
 
         private async void SequenceGenerate(object sender, RoutedEventArgs e)
         {
-            if (collection.Count == 0)
+            if (_collection.Count == 0)
             {
                 var warningDialog = new ContentDialog()
                 {
@@ -134,36 +121,38 @@ namespace Testing_TimSort
                 await warningDialog.ShowAsync();
                 return;
             }
-            var savePicker = new FolderPicker();
-            savePicker.SuggestedStartLocation = PickerLocationId.Desktop;
+            var savePicker = new FolderPicker
+            {
+                SuggestedStartLocation = PickerLocationId.Desktop
+            };
             savePicker.FileTypeFilter.Add("*");
 
             var folder = await savePicker.PickSingleFolderAsync();
 
-            if (folder != null)
+            if (folder == null) return;
+            
+            var progressDialog = new ProgressDialog("Генерируем последовательности");
+            progressDialog.ShowAsync();
+                
+            var sequences = new List<(int[], int, int)>();
+
+
+            while (_collection.Count != 0)
             {
-                var progressDialog = new ProgressDialog("Генерируем последовательности");
-                progressDialog.ShowAsync();
-                
-                var seqGenerator = new SequencesGenerator();
-                List<(int[], int, int)> sequences = new List<(int[], int, int)>();
-
-
-                while (collection.Count != 0)
-                {
-                    sequences.Add((seqGenerator.GenerateSequence(collection[0].Quantity, collection[0].SequenceType), collection[0].Quantity, collection[0].SequenceType));
-                    collection.RemoveAt(0);
-                }
-
-                progressDialog.ContentText = "Сохраняем последовательности";
-                var fileCreator = new FileCreator();
-                await fileCreator.CreateFiles(sequences, folder);
-                progressDialog.Hide();
-                
-                var completeDialog = new CompleteDialog("Готово!", "ОК");
-                await completeDialog.ShowAsync();
-
+                sequences.Add((
+                    SequencesGenerator.GenerateSequence(_collection[0].Quantity, _collection[0].SequenceType),
+                    _collection[0].Quantity, _collection[0].SequenceType
+                ));
+                _collection.RemoveAt(0);
             }
+
+            progressDialog.ContentText = "Сохраняем последовательности";
+            var fileCreator = new FileCreator();
+            await fileCreator.CreateFiles(sequences, folder);
+            progressDialog.Hide();
+                
+            var completeDialog = new CompleteDialog("Готово!", "ОК");
+            await completeDialog.ShowAsync();
         }
         
         private void HelpStart(object sender, RoutedEventArgs e)
@@ -180,11 +169,10 @@ namespace Testing_TimSort
                 HelpTip2.IsOpen = true;
             }
 
-            if (sender == HelpTip2)
-            {
-                sender.IsOpen = false;
-                HelpTip3.IsOpen = true;
-            }
+            if (sender != HelpTip2) return;
+            
+            sender.IsOpen = false;
+            HelpTip3.IsOpen = true;
         }
         
         private void TeachingTip_OnCloseButtonClick(TeachingTip sender, object args)

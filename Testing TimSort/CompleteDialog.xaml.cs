@@ -28,15 +28,15 @@ namespace Testing_TimSort
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CompleteDialog : ContentDialog
+    public sealed partial class CompleteDialog
     {
         public CompleteDialog(string contentText, string buttonText)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ContentText = contentText;
             CloseButtonText = buttonText;
         }
         
-        public string ContentText { get; set; }
+        public string ContentText { get; }
     }
 }

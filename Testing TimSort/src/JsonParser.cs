@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
 using Windows.Data.Json;
 using Windows.UI.Xaml.Input;
 using Microsoft.Toolkit.Parsers.Core;
@@ -18,48 +19,47 @@ namespace Testing_TimSort
             Json = json;
             Value = JsonValue.Parse(Json);
         }
-        public static List<String> GetNames()
+        public static List<string> GetNames()
         {
-            var result = new List<string>();
-            JsonArray testsList = Value.GetObject().GetNamedArray("experiments");
+            var testsList = Value.GetObject().GetNamedArray("experiments");
 
-            for (int i = 0; i < testsList.Count; i++)
-            {
-                result.Add(testsList[i].GetObject().GetNamedString("testName"));
-            }
-            
-            return result;
+            return testsList.Select(test => test.GetObject().GetNamedString("testName")).ToList();
         }
         
-        public static List<ChartsPage.SortingResult> GetTestData(int index)
+        public static List<ExperimentResult> GetTestData(int index)
         {
-            var result = new List<ChartsPage.SortingResult>();
-            JsonArray testsList = Value.GetObject().GetNamedArray("experiments");
+            var testsList = Value.GetObject().GetNamedArray("experiments");
             var array = testsList[index].GetObject().GetNamedArray("data");
-            
-            for (int j = 0; j < array.Count; j++)
-            {
-                var test = array[j].GetObject().GetNamedString("fileName");
-                result.Add(
-                    new ChartsPage.SortingResult()
-                    {
-                        FileName = array[j].GetObject().GetNamedString("fileName"),
-                        TimSort = new ChartsPage.Results()
-                        {
-                            Time = (long) array[j].GetObject().GetNamedObject("TimSort").GetNamedNumber("time"),
-                            Comparisons = (ulong) array[j].GetObject().GetNamedObject("TimSort").GetNamedNumber("comparisons"),
-                            Transpositions = (ulong) array[j].GetObject().GetNamedObject("TimSort").GetNamedNumber("transpositions")
-                        } ,
-                        Insertion = new ChartsPage.Results()
-                        {
-                            Time = (long) array[j].GetObject().GetNamedObject("InsertionSort").GetNamedNumber("time"),
-                            Comparisons = (ulong) array[j].GetObject().GetNamedObject("InsertionSort").GetNamedNumber("comparisons"),
-                            Transpositions = (ulong) array[j].GetObject().GetNamedObject("InsertionSort").GetNamedNumber("transpositions")
-                        }
-                    });
-            }
 
-            return result;
+            return (
+                from item in array 
+                let test = item
+                    .GetObject()
+                    .GetNamedString("fileName") select new ExperimentResult()
+                {
+                    FileName = item.GetObject().GetNamedString("fileName"),
+                    TimSort = new SortingResult()
+                    {
+                        Time = (long) item.GetObject().GetNamedObject("TimSort").GetNamedNumber("time"),
+                        Comparisons = (ulong) item.GetObject().GetNamedObject("TimSort").GetNamedNumber("comparisons"),
+                        Transpositions = (ulong) item.GetObject().GetNamedObject("TimSort").GetNamedNumber("transpositions"),
+                        Acceleration = (long) item.GetObject().GetNamedObject("TimSort").GetNamedNumber("acceleration")
+                    },
+                    Insertion = new SortingResult()
+                    {
+                        Time = (long) item.GetObject().GetNamedObject("InsertionSort").GetNamedNumber("time"),
+                        Comparisons = (ulong) item.GetObject().GetNamedObject("InsertionSort").GetNamedNumber("comparisons"),
+                        Transpositions = (ulong) item.GetObject().GetNamedObject("InsertionSort").GetNamedNumber("transpositions"),
+                        Acceleration = (long) item.GetObject().GetNamedObject("InsertionSort").GetNamedNumber("acceleration")
+                    },
+                    Merge = new SortingResult()
+                    {
+                        Time = (long) item.GetObject().GetNamedObject("MergeSort").GetNamedNumber("time"),
+                        Comparisons = (ulong) item.GetObject().GetNamedObject("MergeSort").GetNamedNumber("comparisons"),
+                        Transpositions = (ulong) item.GetObject().GetNamedObject("MergeSort").GetNamedNumber("transpositions"),
+                        Acceleration = (long) item.GetObject().GetNamedObject("MergeSort").GetNamedNumber("acceleration")
+                    }
+                }).ToList();
         }
     }
 }

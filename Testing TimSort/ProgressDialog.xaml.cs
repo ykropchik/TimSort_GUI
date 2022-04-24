@@ -28,11 +28,11 @@ namespace Testing_TimSort
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ProgressDialog : ContentDialog
+    public sealed partial class ProgressDialog
     {
         public ProgressDialog(string contentText)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ContentText = contentText;
         }
         

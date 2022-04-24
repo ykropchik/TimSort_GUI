@@ -7,35 +7,7 @@
     xmlns:local="using:Testing_TimSort"
     mc:Ignorable="d">
     
-    <!-- <Grid Background="Coral"> -->
-    <!--     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50"> Домашняя страница </TextBlock> -->
-    <!-- </Grid> -->
-    
-    <!--<StackPanel Orientation="Vertical" Padding="12 24 12 24" >
-        <TextBlock FontSize="40" Text="TimSort" Padding="12 0 0 24"/>
-        <StackPanel Orientation="Horizontal" Height="Auto" Width="Auto">
-            <TextBlock FontSize="16" Height="auto" Width="auto" TextWrapping="WrapWholeWords" Padding="12 0 12 0">
-                TimSort - гибридный алгоритм сортировки, разработанный Тимом Питерсом в 2002 года, и сочетающий в себе сортировку вставками и сортировку слиянием.
-                В настоящий момент алгоритм является стандартным алгоритмом сортировки Python, OpenJDK и реализован в Android SDK 1.5.
-                Идея алгоритма строится на идеи, что в реальном мире сортируемые массивы данных зачастую содержат в себе упорядоченные подмассивы.
-                На таких наборах данных алгоритм TimSort показывает наилучшие результаты, по сравнению с другими алгоритмами сортировок.
-            </TextBlock>
-            <StackPanel Orientation="Vertical">
-                <TextBlock FontSize="16" Height="auto" Width="auto" TextWrapping="WrapWholeWords" Padding="12 0 12 0"></TextBlock>
-            </StackPanel>
-            
-        </StackPanel>
-        
-        <TextBlock FontSize="40" Text="Вставки" Padding="0 0 12 24" TextAlignment="Right"/>
-        <TextBlock FontSize="16" Height="auto" Width="auto" TextWrapping="WrapWholeWords" Padding="12 0 24 0">
-            TimSort - гибридный алгоритм сортировки, разработанный Тимом Питерсом в 2002 года, и сочетающий в себе сортировку вставками и сортировку слиянием.
-            В настоящий момент алгоритм является стандартным алгоритмом сортировки Python, OpenJDK и реализован в Android SDK 1.5.
-            Идея алгоритма строится на идеи, что в реальном мире сортируемые массивы данных зачастую содержат в себе упорядоченные подмассивы.
-            На таких наборах данных алгоритм TimSort показывает наилучшие результаты, по сравнению с другими алгоритмами сортировок.
-        </TextBlock>
-    </StackPanel>-->
-    
-    <Grid>
+    <Grid Padding="24 0 24 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -48,74 +20,124 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <TextBlock FontSize="40" Text="TimSort" Padding="24 12 0 24"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Height="auto" Width="auto" TextWrapping="WrapWholeWords" Padding="12 0 12 0">
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="40" Text="TimSort" Padding="24 12 0 24"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Height="auto" Width="auto" TextWrapping="WrapWholeWords" >
             TimSort - гибридный алгоритм сортировки, разработанный Тимом Питерсом в 2002 года, и сочетающий в себе сортировку вставками и сортировку слиянием.
             В настоящий момент алгоритм является стандартным алгоритмом сортировки Python, OpenJDK и реализован в Android SDK 1.5.
             Идея алгоритма строится на идеи, что в реальном мире сортируемые массивы данных зачастую содержат в себе упорядоченные подмассивы.
             На таких наборах данных алгоритм TimSort показывает наилучшие результаты, по сравнению с другими алгоритмами сортировок.
         </TextBlock>
-        <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Orientation="Vertical" VerticalAlignment="Bottom" Padding="36 0 36 0">
-            <TextBlock TextAlignment="Center" Margin="0 0 0 12">
+        <Grid Grid.Row="1" Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" TextAlignment="Center" Margin="0 0 0 12">
                 Эффективность:
             </TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
-                <TextBlock TextAlignment="Left" Margin="0 0 24 0">
-                    Лучшее время: 
-                </TextBlock>
-                <Image Source="Assets/n.png" Height="20" HorizontalAlignment="Right"/>
-            </StackPanel>
             
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
-                <TextBlock TextAlignment="Left" Margin="0 0 24 0">
-                    Худшее время: 
-                </TextBlock>
-                <Image Source="Assets/nlogn.png" Height="20" HorizontalAlignment="Right"/>
-            </StackPanel>
+            <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" Margin="0 0 24 8">
+                Лучшее время: 
+            </TextBlock>
+            <Image Grid.Row="1" Grid.Column="1" Source="Assets/n.png" Height="20" HorizontalAlignment="Left"/>
             
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
-                <TextBlock TextAlignment="Left" Margin="0 0 24 0">
-                    Среднее время: 
-                </TextBlock>
-                <Image Source="Assets/nlogn.png" Height="20" HorizontalAlignment="Stretch"/>
-            </StackPanel>
-        </StackPanel>
+            <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" Margin="0 0 24 8">
+                Худшее время: 
+            </TextBlock>
+            <Image Grid.Row="2" Grid.Column="1" Source="Assets/nlogn.png" Height="20" HorizontalAlignment="Left"/>
+            
+            <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" Margin="0 0 24 8">
+                Среднее время: 
+            </TextBlock>
+            <Image Grid.Row="3" Grid.Column="1" Source="Assets/nlogn.png" Height="20" HorizontalAlignment="Left"/>
+        </Grid>
         
-        <TextBlock Grid.Row="2" Grid.Column="3" FontSize="40" Text="Вставки" Padding="0 12 24 24" TextAlignment="Right"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" FontSize="16" Height="auto" Width="auto" TextWrapping="WrapWholeWords" Padding="12 0 24 0">
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="40" Text="Вставки" Padding="24 12 0 24" TextAlignment="Left"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Height="auto" Width="auto" TextWrapping="WrapWholeWords" Padding="12 0 24 0">
             Сортировка вставками - алгоритм сортировки, в котором элементы входной последовательности просматриваются по одному, и каждый новый поступивший элемент
             размещается в подходящее место среди ранее упорядоченных элементов. Алгоритм прост в реализации, преимущественно используется в учебном программировании.
             К положительной стороне метода относится простота реализации, а также его эффективность на частично упорядоченных последовательностях, и/или состоящих из небольшого числа элементов. 
             Тем не менее, высокая вычислительная сложность не позволяет рекомендовать алгоритм в повсеместном использовании
         </TextBlock>
-        <StackPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Bottom" Padding="36 0 36 0">
-            <TextBlock TextAlignment="Center" Margin="0 0 0 12">
+        <Grid Grid.Row="3" Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" TextAlignment="Center" Margin="0 0 0 12">
                 Эффективность:
             </TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
-                <TextBlock TextAlignment="Left" Margin="0 0 24 0">
-                    Лучшее время: 
-                </TextBlock>
-                <Image Source="Assets/n.png" Height="20" HorizontalAlignment="Right"/>
-            </StackPanel>
             
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
-                <TextBlock TextAlignment="Left" Margin="0 0 24 0">
-                    Худшее время: 
-                </TextBlock>
-                <Image Source="Assets/n^2.png" Height="20" HorizontalAlignment="Right"/>
-            </StackPanel>
+            <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" Margin="0 0 24 8">
+                Лучшее время: 
+            </TextBlock>
+            <Image Grid.Row="1" Grid.Column="1" Source="Assets/n.png" Height="20" HorizontalAlignment="Left"/>
             
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 8" HorizontalAlignment="Center">
-                <TextBlock TextAlignment="Left" Margin="0 0 24 0">
-                    Среднее время: 
-                </TextBlock>
-                <Image Source="Assets/n^2.png" Height="20" HorizontalAlignment="Stretch"/>
-            </StackPanel>
-        </StackPanel>
+            <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" Margin="0 0 24 8">
+                Худшее время: 
+            </TextBlock>
+            <Image Grid.Row="2" Grid.Column="1" Source="Assets/n^2.png" Height="20" HorizontalAlignment="Left"/>
+            
+            <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" Margin="0 0 24 8">
+                Среднее время: 
+            </TextBlock>
+            <Image Grid.Row="3" Grid.Column="1" Source="Assets/n^2.png" Height="20" HorizontalAlignment="Left"/>
+        </Grid>
         
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="40" Text="Слияние" Padding="24 12 0 24" TextAlignment="left"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" FontSize="16" Height="auto" Width="auto" TextWrapping="WrapWholeWords" Padding="12 0 24 0">
+            Сортировка вставками - алгоритм сортировки, который упорядочивает списки (или другие структуры данных, доступ к элементам которых можно получать только последовательно, например — потоки)
+            в определённом порядке. Эта сортировка — хороший пример использования принципа «разделяй и властвуй». Сначала задача разбивается на несколько подзадач меньшего размера.
+            Затем эти задачи решаются с помощью рекурсивного вызова или непосредственно, если их размер достаточно мал. Наконец, их решения комбинируются, и получается решение исходной задачи.
+        </TextBlock>
+        <Grid Grid.Row="5" Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" TextAlignment="Center" Margin="0 0 0 12">
+                Эффективность:
+            </TextBlock>
+            
+            <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Right" Margin="0 0 24 8">
+                Лучшее время: 
+            </TextBlock>
+            <Image Grid.Row="1" Grid.Column="1" Source="Assets/nlogn.png" Height="20" HorizontalAlignment="Left"/>
+            
+            <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Right" Margin="0 0 24 8">
+                Худшее время: 
+            </TextBlock>
+            <Image Grid.Row="2" Grid.Column="1" Source="Assets/nlogn.png" Height="20" HorizontalAlignment="Left"/>
+            
+            <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Right" Margin="0 0 24 8">
+                Среднее время: 
+            </TextBlock>
+            <Image Grid.Row="3" Grid.Column="1" Source="Assets/nlogn.png" Height="20" HorizontalAlignment="Left"/>
+        </Grid>
     </Grid>
-    
 </Page>

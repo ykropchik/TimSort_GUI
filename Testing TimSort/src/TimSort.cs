@@ -7,10 +7,9 @@ using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 
 namespace Testing_TimSort
 {
-    public class TimSort
+    class TimSort: Sorting
     {
-        private const byte MIN_GALLOP = 7;
-        private const byte MAX_STACK = 40;
+        private const byte MaxStack = 40;
         private static ulong _transposition;
         private static ulong _transpositionDoub;
         private static ulong _comparisons;
@@ -25,7 +24,7 @@ namespace Testing_TimSort
 
         private static int GetMinRun(int size)
         {
-            int flag = 0;           
+            var flag = 0;           
             while (size >= 64) {
                 flag |= size & 1;
                 size >>= 1;
@@ -35,16 +34,14 @@ namespace Testing_TimSort
 
         private static void Insertion(RunInfo subArr)
         {
-            for (int i = subArr.Start + 1; i < subArr.Start + subArr.Length; i++)
+            for (var i = subArr.Start + 1; i < subArr.Start + subArr.Length; i++)
             {
-                for (int j = i; j > subArr.Start; j--)
+                for (var j = i; j > subArr.Start; j--)
                 {
                     _comparisons++;
                     if (_array[j - 1] > _array[j])
                     {
-                        int temp = _array[j - 1];
-                        _array[j - 1] = _array[j];
-                        _array[j] = temp;
+                        (_array[j - 1], _array[j]) = (_array[j], _array[j - 1]);
                         _transposition++;
                     }
                     else
@@ -57,21 +54,17 @@ namespace Testing_TimSort
 
         private static void Overturn(RunInfo subArr)
         {
-            int temp;
-            int end = subArr.Start + subArr.Length - 1;
-            for (int i = 0; i < subArr.Length / 2; i++)
+            var end = subArr.Start + subArr.Length - 1;
+            for (var i = 0; i < subArr.Length / 2; i++)
             {
-                temp = _array[end - i];
-                _array[end - i] = _array[subArr.Start + i];
-                _array[subArr.Start + i] = temp;
+                (_array[end - i], _array[subArr.Start + i]) = (_array[subArr.Start + i], _array[end - i]);
                 _transposition++;
             }
         }
 
         private static void CheckInvariant()
         {
-            bool isAlright = false;
-            
+            var isAlright = false;
 
             while (!isAlright)
             {
@@ -147,14 +140,14 @@ namespace Testing_TimSort
             if (first.Length <= second.Length)
             {
                 tempArray = new int[first.Length];
-                for (int i = 0; i < first.Length; i++)
+                for (var i = 0; i < first.Length; i++)
                 {
                     tempArray[i] = _array[first.Start + i];
                 }
                 
                 int firstPointer = 0, 
                     secondPointer = second.Start;
-                for (int i = first.Start; i < second.Start + second.Length - 1; i++)
+                for (var i = first.Start; i < second.Start + second.Length - 1; i++)
                 {
                     _comparisons++;
                     if (firstPointer >= first.Length)
@@ -178,14 +171,14 @@ namespace Testing_TimSort
             else
             {
                 tempArray = new int[second.Length];
-                for (int i = 0; i < second.Length; i++)
+                for (var i = 0; i < second.Length; i++)
                 {
                     tempArray[i] = _array[second.Start + i];
                 }
                 
                 int firstPointer = first.Start + first.Length - 1, 
                     secondPointer = tempArray.Length - 1;
-                for (int i = second.Start + second.Length - 1; i >= first.Start; i--)
+                for (var i = second.Start + second.Length - 1; i >= first.Start; i--)
                 {
                     _comparisons++;
                     if (secondPointer < 0)
@@ -209,32 +202,18 @@ namespace Testing_TimSort
             }
         }
 
-        private static void CheckOrder()
-        {
-            int errorCount = 0;
-            for (int i = 1; i < _array.Length; i++)
-            {
-                if (_array[i - 1] > _array[i])
-                {
-                    errorCount++;
-                }
-            }
-        }
-        
-        public static async Task<(ulong, ulong, long)> Sorting(int[] array)
+        protected override (ulong, ulong) StartSort(int[] array)
         {
             _array = array;
             _transposition = 0;
             _comparisons = 0;
             _transpositionDoub = 0;
-            var stopWatch = new Stopwatch();
             
-            int arrayLength = array.Length;
-            int minRun = GetMinRun(arrayLength);
+            var arrayLength = array.Length;
+            var minRun = GetMinRun(arrayLength);
             _runStack = new Stack<RunInfo>();
-            RunInfo tempRun = new RunInfo();
-            int pointer = 0;
-            stopWatch.Start();
+            var tempRun = new RunInfo();
+            var pointer = 0;
 
             while (pointer < arrayLength - 1)
             {
@@ -275,7 +254,7 @@ namespace Testing_TimSort
                 Insertion(tempRun);
                 _runStack.Push(tempRun);
                 CheckInvariant();
-                if (_runStack.Count == MAX_STACK)
+                if (_runStack.Count == MaxStack)
                 {
                     var second = _runStack.Pop();
                     var first = _runStack.Pop();
@@ -304,11 +283,7 @@ namespace Testing_TimSort
                 CheckInvariant();
             }
             
-            stopWatch.Stop();
-
-            //CheckOrder();
-            
-            return (_comparisons, _transposition + _transpositionDoub*2, stopWatch.ElapsedMilliseconds);
+            return (_comparisons,  _transposition + _transpositionDoub*2);
         }
     }
 }

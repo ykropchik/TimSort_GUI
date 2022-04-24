@@ -10,16 +10,16 @@ namespace Testing_TimSort
         {
             int[] result;
             var stream = await file.OpenAsync(FileAccessMode.Read);
-            ulong size = stream.Size;
+            var size = stream.Size;
             using (var inputStream = stream.GetInputStreamAt(0))
             {
                 using (var dataReader = new Windows.Storage.Streams.DataReader(inputStream))
                 { 
                     await dataReader.LoadAsync((uint)size);
-                    int quantity = dataReader.ReadInt32();
+                    var quantity = dataReader.ReadInt32();
                     result = new int[quantity];
 
-                    for (int i = 0; i < quantity; i++)
+                    for (var i = 0; i < quantity; i++)
                     {
                         result[i] = dataReader.ReadInt32();
                     }
